@@ -75,3 +75,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 /Test1BitJam/Library
 /Test1BitJam/UserSettings
+/Test1BitJam/Temp
