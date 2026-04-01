@@ -28,7 +28,7 @@ MonoBehaviour:
   - {fileID: 7833122117494664109}
   - {fileID: 6169681581725083064}
   m_RendererFeatureMap: ad6b866f10d7b46cb865fecfb51c9f55
-  m_UseNativeRenderPass: 1
+  m_UseNativeRenderPass: 0
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   m_AssetVersion: 2
@@ -52,7 +52,7 @@ MonoBehaviour:
   m_DepthAttachmentFormat: 0
   m_DepthTextureFormat: 0
   m_AccurateGbufferNormals: 0
-  m_IntermediateTextureMode: 0
+  m_IntermediateTextureMode: 1
 --- !u!114 &6169681581725083064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,11 +69,11 @@ MonoBehaviour:
   renderPassEvent: 350
   outlinesLayerMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 200
   outlineSettings:
     outlineColor: {r: 0, g: 0, b: 0, a: 1}
-    outlineScale: 0.7
-    depthThreshold: 1.5
+    outlineScale: 0.55
+    depthThreshold: 0.55
     robertsCrossMultiplier: 100
     normalThreshold: 0.4
     steepAngleThreshold: 0.2
