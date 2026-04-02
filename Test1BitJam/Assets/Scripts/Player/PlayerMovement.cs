@@ -12,10 +12,6 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Vector2 action for Mouse Position")]
     public InputActionReference mousePositionAction;
 
-    [Header("Top-Down Aiming")]
-    [Tooltip("The child object that will rotate to face the mouse")]
-    public Transform objectToRotate;
-
     [Header("Movement Speeds")]
     public float walkSpeed = 5f;
     public float runSpeed = 10f;
@@ -40,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         HandleMovementAndStamina();
-        HandleTopDownAiming();
     }
 
     void LateUpdate()
@@ -83,27 +78,4 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(moveDirection * currentSpeed * Time.deltaTime);
     }
 
-    private void HandleTopDownAiming()
-    {
-        if (objectToRotate == null || mainCamera == null) return;
-
-        Vector2 mouseScreenPosition = mousePositionAction.action.ReadValue<Vector2>();
-
-        Ray ray = mainCamera.ScreenPointToRay(mouseScreenPosition);
-
-        Plane groundPlane = new Plane(Vector3.up, new Vector3(0, objectToRotate.position.y, 0));
-
-        if (groundPlane.Raycast(ray, out float rayDistance))
-        {
-            Vector3 pointOfIntersection = ray.GetPoint(rayDistance);
-
-            Vector3 lookDirection = pointOfIntersection - objectToRotate.position;
-            lookDirection.y = 0f;
-
-            if (lookDirection.sqrMagnitude > 0.01f)
-            {
-                objectToRotate.rotation = Quaternion.LookRotation(lookDirection);
-            }
-        }
-    }
 }

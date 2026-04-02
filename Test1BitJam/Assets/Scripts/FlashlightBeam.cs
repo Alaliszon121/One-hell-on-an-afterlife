@@ -7,9 +7,17 @@ public class FlashlightBeam : MonoBehaviour
     public float maxDistance = 10f;
     [Range(10f, 90f)] public float beamAngle = 30f;
     public int resolution = 20;
+
+    [Tooltip("CRITICAL: Ensure your Player layer is NOT selected here, or the beam will hit your own body!")]
     public LayerMask detectionLayers;
     public float smoothingSpeed = 15f;
-    public Light light;
+
+    public Light attachedLight;
+
+    [Header("Physics Stability")]
+    [Tooltip("Gives the beam thickness so it doesn't clip through walls or slip through seams.")]
+    public float beamThickness = 0.2f;
+
     private Mesh beamMesh;
     private Vector3[] vertices;
     private int[] triangles;
@@ -19,20 +27,21 @@ public class FlashlightBeam : MonoBehaviour
 
     void Start()
     {
-        beamMesh = new Mesh {
-            name = "ProceduralFlashlightCone" };
+        beamMesh = new Mesh { name = "ProceduralFlashlightCone" };
         GetComponent<MeshFilter>().mesh = beamMesh;
 
         currentLength = maxDistance;
 
         GenerateMeshStructure();
+
+        UpdateMeshVertices(currentLength);
     }
 
     void Update()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, maxDistance, detectionLayers))
+        if (Physics.SphereCast(transform.position, beamThickness, transform.forward, out RaycastHit hit, maxDistance, detectionLayers, QueryTriggerInteraction.Ignore))
         {
-            targetLength = hit.distance;
+            targetLength = Mathf.Max(0.1f, hit.distance);
         }
         else
         {
@@ -40,7 +49,11 @@ public class FlashlightBeam : MonoBehaviour
         }
 
         currentLength = Mathf.Lerp(currentLength, targetLength, Time.deltaTime * smoothingSpeed);
-        light.range = targetLength + 2f;
+
+        if (attachedLight != null)
+        {
+            attachedLight.range = currentLength + 2f;
+        }
 
         UpdateMeshVertices(currentLength);
     }
@@ -81,7 +94,7 @@ public class FlashlightBeam : MonoBehaviour
         }
 
         beamMesh.vertices = vertices;
-
         beamMesh.RecalculateBounds();
+        beamMesh.RecalculateNormals();
     }
 }

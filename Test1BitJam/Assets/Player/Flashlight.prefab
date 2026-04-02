@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1704233264656528764}
-  - component: {fileID: 3418048897680380383}
   - component: {fileID: 1715500078332713950}
   - component: {fileID: 7964871434449730828}
+  - component: {fileID: 9094989699262108425}
   m_Layer: 6
   m_Name: Flashlight
   m_TagString: Untagged
@@ -35,26 +35,6 @@ Transform:
   - {fileID: 1926429847600833787}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3418048897680380383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2230020999991028473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09755d235f11eb44aa257bbe69209215, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxDistance: 5
-  beamAngle: 30
-  resolution: 25
-  detectionLayers:
-    serializedVersion: 2
-    m_Bits: 128
-  smoothingSpeed: 15
-  light: {fileID: 8223680282609767550}
 --- !u!33 &1715500078332713950
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -108,6 +88,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &9094989699262108425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2230020999991028473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c195a2580dbda44b90310e082028e8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 7
+  beamAngle: 30
+  resolution: 20
+  detectionLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  smoothingSpeed: 15
+  attachedLight: {fileID: 8223680282609767550}
+  beamThickness: 0.2
 --- !u!1 &3299702661167512473
 GameObject:
   m_ObjectHideFlags: 0
