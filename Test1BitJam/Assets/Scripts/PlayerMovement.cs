@@ -63,8 +63,8 @@ public class PlayerMovement : MonoBehaviour
             moveDirection.Normalize();
         }
 
-        GameManager.instance.playerStatus.isWalking = moveDirection.magnitude > 0.1f;
-        GameManager.instance.playerStatus.isRunning = false;
+        GameManager.instance.playerStatus.isWalking = inputVector.sqrMagnitude > 0.1f;
+        
 
         if (isAttemptingToRun && GameManager.instance.playerStatus.isWalking && GameManager.instance.playerStatus.currentStamina > 0f)
         {
@@ -73,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (GameManager.instance.playerStatus.currentStamina < GameManager.instance.playerStatus.maxStamina)
         {
+            GameManager.instance.playerStatus.isRunning = false;
             GameManager.instance.playerStatus.currentStamina += staminaRegenRate * Time.deltaTime;
         }
 

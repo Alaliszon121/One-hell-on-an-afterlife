@@ -9,6 +9,9 @@ public class PlayerAnimation : MonoBehaviour
     [Tooltip("Button action for Sprinting (e.g., Left Shift)")]
     public InputActionReference runAction;
     
+    [Header("Movement")]
+    [SerializeField] private float rotationSpeed = 5f;
+    
     private Animator _animator;
     private RuntimeAnimatorController _controller;
 
@@ -20,22 +23,31 @@ public class PlayerAnimation : MonoBehaviour
 
     void Update()
     {
-        Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
-        bool isMovingNow = moveInput.sqrMagnitude > 0.1f;
-        bool isRunningNow = runAction.action.IsPressed() 
-                            && GameManager.instance.playerStatus.isWalking 
-                            && GameManager.instance.playerStatus.isRunning;
+        Vector2 inputVector = moveAction.action.ReadValue<Vector2>();
+        Vector3 moveDirection = new Vector3(inputVector.x, 0f, inputVector.y);
         
-        if (isMovingNow != GameManager.instance.playerStatus.isWalking)
+        if (moveDirection.magnitude > 0.1f)
         {
-            GameManager.instance.playerStatus.isWalking = isMovingNow;
-            _animator.SetBool("IsWalking", isMovingNow);
+            float angle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
+            float snappedAngle = Mathf.Round(angle / 45f) * 45f;
+
+            Quaternion targetRotation = Quaternion.Euler(0f, snappedAngle, 0f);
+
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                rotationSpeed * Time.deltaTime
+            );
+        }
+        
+        if (_animator.GetBool("IsWalking") != GameManager.instance.playerStatus.isWalking)
+        {
+            _animator.SetBool("IsWalking", GameManager.instance.playerStatus.isWalking);
         }
 
-        if (isRunningNow != GameManager.instance.playerStatus.isRunning)
+        if (_animator.GetBool("IsRunning") != GameManager.instance.playerStatus.isRunning)
         {
-            GameManager.instance.playerStatus.isRunning = isRunningNow;
-            _animator.SetBool("IsRunning", isRunningNow);
+            _animator.SetBool("IsRunning", GameManager.instance.playerStatus.isRunning);
         }
     }
 }
