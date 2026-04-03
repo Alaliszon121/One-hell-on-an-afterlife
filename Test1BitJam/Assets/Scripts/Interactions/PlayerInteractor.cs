@@ -11,12 +11,15 @@ public class PlayerInteractor : MonoBehaviour
     [SerializeField] private InputActionReference interactAction;
 
     [Header("Highlight Settings")]
-    [SerializeField] private Material highlightMaterial;
+    [Tooltip("How much lighter the object becomes. Multiplies the base color for emission.")]
+    [SerializeField] [Range(0f, 5f)] private float highlightEmissionIntensity = 1.25f;
 
     private List<IInteractable> interactablesInRange = new List<IInteractable>();
     private IInteractable currentClosestInteractable;
     private Renderer highlightedRenderer;
-    private Material originalMaterial;
+
+    private Material originalSharedMaterial;
+    private Material instancedHighlightMaterial;
 
     private void OnEnable()
     {
@@ -95,20 +98,43 @@ public class PlayerInteractor : MonoBehaviour
     private void ApplyHighlight(IInteractable interactable)
     {
         highlightedRenderer = interactable.GetTransform().GetComponent<Renderer>();
+
         if (highlightedRenderer != null)
         {
-            originalMaterial = highlightedRenderer.material;
-            highlightedRenderer.material = highlightMaterial;
+            originalSharedMaterial = highlightedRenderer.sharedMaterial;
+
+            instancedHighlightMaterial = highlightedRenderer.material;
+
+            instancedHighlightMaterial.EnableKeyword("_EMISSION");
+
+            Color baseColor = Color.white;
+            if (instancedHighlightMaterial.HasProperty("_BaseColor"))
+            {
+                baseColor = instancedHighlightMaterial.GetColor("_BaseColor");
+            }
+            else if (instancedHighlightMaterial.HasProperty("_Color"))
+            {
+                baseColor = instancedHighlightMaterial.GetColor("_Color");
+            }
+
+            instancedHighlightMaterial.SetColor("_EmissionColor", baseColor * highlightEmissionIntensity);
         }
     }
 
     private void RemoveHighlight()
     {
-        if (highlightedRenderer != null && originalMaterial != null)
+        if (highlightedRenderer != null && originalSharedMaterial != null)
         {
-            highlightedRenderer.material = originalMaterial;
+            highlightedRenderer.sharedMaterial = originalSharedMaterial;
+
+            if (instancedHighlightMaterial != null)
+            {
+                Destroy(instancedHighlightMaterial);
+            }
+
             highlightedRenderer = null;
-            originalMaterial = null;
+            originalSharedMaterial = null;
+            instancedHighlightMaterial = null;
         }
     }
 
