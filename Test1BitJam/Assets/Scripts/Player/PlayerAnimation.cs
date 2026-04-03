@@ -13,12 +13,10 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private float rotationSpeed = 5f;
     
     private Animator _animator;
-    private RuntimeAnimatorController _controller;
 
     void Start()
     {
         _animator = GetComponentInChildren<Animator>();
-        _controller = _animator.runtimeAnimatorController;
     }
 
     void Update()

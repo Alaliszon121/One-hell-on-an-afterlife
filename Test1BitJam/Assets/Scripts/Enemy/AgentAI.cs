@@ -11,6 +11,7 @@ public class AgentAI : MonoBehaviour
     [SerializeField] public int currentWaypoint = 0;
     
     private NavMeshAgent _navMeshAgent;
+    public bool isChasing = false;
     
     void Start()
     {
@@ -20,7 +21,7 @@ public class AgentAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Walking();
+        if(!isChasing) Walking();
     }
 
     void Walking()
@@ -29,7 +30,7 @@ public class AgentAI : MonoBehaviour
         
         float distanceToWaypoint = Vector3.Distance(wayPoints[currentWaypoint].position, transform.position);
 
-        if (distanceToWaypoint <= 5) currentWaypoint = (currentWaypoint + 1) % wayPoints.Count;
+        if (distanceToWaypoint <= 1) currentWaypoint = (currentWaypoint + 1) % wayPoints.Count;
         
         _navMeshAgent.SetDestination(wayPoints[currentWaypoint].position);
         
