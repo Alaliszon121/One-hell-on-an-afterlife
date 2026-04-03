@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     private Camera mainCamera;
     private float lockedYPosition;
 
+    private bool isExhausted = false;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -59,23 +61,38 @@ public class PlayerMovement : MonoBehaviour
         }
 
         GameManager.instance.playerStatus.isWalking = inputVector.sqrMagnitude > 0.1f;
-        
 
-        if (isAttemptingToRun && GameManager.instance.playerStatus.isWalking && GameManager.instance.playerStatus.currentStamina > 0f)
+        if (GameManager.instance.playerStatus.currentStamina <= 0f)
+        {
+            isExhausted = true;
+        }
+        else if (GameManager.instance.playerStatus.currentStamina >= GameManager.instance.playerStatus.maxStamina)
+        {
+            isExhausted = false;
+        }
+
+        if (isAttemptingToRun && GameManager.instance.playerStatus.isWalking && !isExhausted)
         {
             GameManager.instance.playerStatus.isRunning = true;
             GameManager.instance.playerStatus.currentStamina -= staminaDrainRate * Time.deltaTime;
         }
-        else if (GameManager.instance.playerStatus.currentStamina < GameManager.instance.playerStatus.maxStamina)
+        else
         {
             GameManager.instance.playerStatus.isRunning = false;
-            GameManager.instance.playerStatus.currentStamina += staminaRegenRate * Time.deltaTime;
+
+            if (GameManager.instance.playerStatus.currentStamina < GameManager.instance.playerStatus.maxStamina)
+            {
+                GameManager.instance.playerStatus.currentStamina += staminaRegenRate * Time.deltaTime;
+            }
         }
 
-        GameManager.instance.playerStatus.currentStamina = Mathf.Clamp(GameManager.instance.playerStatus.currentStamina, 0f, GameManager.instance.playerStatus.maxStamina);
+        GameManager.instance.playerStatus.currentStamina = Mathf.Clamp(
+            GameManager.instance.playerStatus.currentStamina,
+            0f,
+            GameManager.instance.playerStatus.maxStamina
+        );
 
         float currentSpeed = GameManager.instance.playerStatus.isRunning ? runSpeed : walkSpeed;
         controller.Move(moveDirection * currentSpeed * Time.deltaTime);
     }
-
 }
