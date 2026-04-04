@@ -48,13 +48,12 @@ public class ComputerManager : MonoBehaviour
         }
 
         isPcLocked = true;
-
+        Time.timeScale = 1f;
         Invoke(nameof(CloseComputer), 3f);
     }
 
     public void CloseComputer()
     {
-        Time.timeScale = 1f;
         gameObject.SetActive(false);
     }
 }

@@ -13,4 +13,8 @@ public class Quest
 
     [Tooltip("Leave empty if this quest is unlocked via an in-game interaction.")]
     public string previousQuestId;
+
+    [Header("UI Settings")]
+    [Tooltip("If checked, the title and description will be hidden when the quest is locked.")]
+    public bool hideInfoWhenLocked = true;
 }
