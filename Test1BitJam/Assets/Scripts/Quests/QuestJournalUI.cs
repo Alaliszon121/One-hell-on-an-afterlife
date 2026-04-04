@@ -16,6 +16,7 @@ public class QuestJournalUI : MonoBehaviour
 
         QuestManager.Instance.OnQuestUnlocked += HandleQuestUnlocked;
         QuestManager.Instance.OnQuestCompleted += HandleQuestCompleted;
+        QuestManager.Instance.UnlockQuest("0");
     }
 
     private void OnDestroy()

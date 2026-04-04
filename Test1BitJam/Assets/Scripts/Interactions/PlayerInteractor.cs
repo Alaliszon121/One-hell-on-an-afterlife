@@ -41,7 +41,7 @@ public class PlayerInteractor : MonoBehaviour
 
     private void Start()
     {
-        QuestManager.Instance.UnlockQuest("0");
+        
     }
     private void Update()
     {
