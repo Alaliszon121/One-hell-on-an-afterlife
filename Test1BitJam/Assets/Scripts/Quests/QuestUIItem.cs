@@ -15,6 +15,6 @@ public class QuestUIItem : MonoBehaviour
     public void UpdateStatus(Quest quest)
     {
         statusText.text = quest.isCompleted ? "[Completed]" : "[Active]";
-        statusText.color = quest.isCompleted ? Color.gray : Color.white;
+        statusText.color = quest.isCompleted ? Color.black : Color.white;
     }
 }
