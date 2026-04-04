@@ -4,22 +4,19 @@ using UnityEngine.AI;
 
 public class AgentAI : MonoBehaviour
 {
-    [Header("Wszyskie waypointy")]
-    [SerializeField] public List<Transform> wayPoints;
-    
     [Header("Wybrany waypoint")]
     [SerializeField] public int currentWaypoint = 0;
-    
-    [Header("Transform gracza")]
-    [SerializeField] private Transform player;
     
     [Header("Animator przeciwnika")]
     [SerializeField] private Animator animator;
     
+    private List<Transform> wayPoints;
+    private Transform player;
+    
     private NavMeshAgent navMeshAgent;
     public bool isChasing = false;
     
-    void Start()
+    void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
@@ -27,6 +24,7 @@ public class AgentAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (wayPoints == null || player == null) return;
         if(!isChasing) Walking();
         else
         {
@@ -64,5 +62,11 @@ public class AgentAI : MonoBehaviour
         isChasing = false;
         navMeshAgent.speed = GameManager.instance.walkSpeed;
         animator.SetBool("Spotted", false);
+    }
+    
+    public void SetVariables(List<Transform> wayPoints, Transform player)
+    {
+        this.wayPoints = wayPoints;
+        this.player = player;
     }
 }
