@@ -15,7 +15,8 @@ public class NPCInteractable : MonoBehaviour, IInteractable
 
     private int currentLineIndex = 0;
     private bool isTalking = false;
-
+    [SerializeField] private bool isQuest = false;
+    [SerializeField] private string questID = "0";
     private void Start()
     {
         if (dialogueCanvas != null)
@@ -70,6 +71,10 @@ public class NPCInteractable : MonoBehaviour, IInteractable
         isTalking = false;
         currentLineIndex = 0;
         dialogueCanvas.SetActive(false);
+        if (isQuest) { 
+            QuestManager.Instance.CompleteQuest(questID); 
+            isQuest = false; 
+        }
     }
 
     public Transform GetTransform()
