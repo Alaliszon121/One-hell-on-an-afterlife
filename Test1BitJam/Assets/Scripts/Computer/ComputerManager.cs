@@ -25,6 +25,7 @@ public class ComputerManager : MonoBehaviour
         }
 
         ShowPanel(loginPanel);
+        Time.timeScale = 0f;
     }
 
     public void ShowPanel(GameObject panelToShow)
@@ -53,6 +54,7 @@ public class ComputerManager : MonoBehaviour
 
     public void CloseComputer()
     {
+        Time.timeScale = 1f;
         gameObject.SetActive(false);
     }
 }
