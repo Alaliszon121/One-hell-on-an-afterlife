@@ -7,3 +7,4 @@ public class PlayerStatus
     public bool isWalking = false;
     public bool isRunning = false;
 }
+

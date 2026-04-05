@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerStateManager : MonoBehaviour
 {
-    public enum PlayerColorState { White, Blue, Red }
+    
 
     [Header("Current State")]
     public PlayerColorState currentState = PlayerColorState.White;
@@ -135,3 +135,5 @@ public class PlayerStateManager : MonoBehaviour
         return currentState == PlayerColorState.Blue;
     }
 }
+
+public enum PlayerColorState { White, Blue, Red }
