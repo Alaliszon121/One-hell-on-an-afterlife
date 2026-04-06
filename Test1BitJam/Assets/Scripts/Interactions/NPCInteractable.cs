@@ -17,6 +17,8 @@ public class NPCInteractable : MonoBehaviour, IInteractable
     private bool isTalking = false;
     [SerializeField] private bool isQuest = false;
     [SerializeField] private string questID = "0";
+    [SerializeField] private bool shouldUnlockQuest = false;
+    [SerializeField] private string questToUnlock = "0";
     private void Start()
     {
         if (dialogueCanvas != null)
@@ -74,6 +76,10 @@ public class NPCInteractable : MonoBehaviour, IInteractable
         if (isQuest) { 
             QuestManager.Instance.CompleteQuest(questID); 
             isQuest = false; 
+        }
+        if (shouldUnlockQuest)
+        {
+            QuestManager.Instance.UnlockQuest(questToUnlock);
         }
     }
 
