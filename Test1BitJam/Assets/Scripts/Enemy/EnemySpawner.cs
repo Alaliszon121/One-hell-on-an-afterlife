@@ -6,6 +6,8 @@ public class EnemySpawner : MonoBehaviour
     [Header("Spawn Info")]
     [SerializeField] private GameObject[] enemyPrefab;
     [SerializeField] private Transform enemyContainer;
+    [SerializeField] private int spawnAmount = 1;
+    [SerializeField] private float spawnRate = 20f;
     
     [Header("Transform gracza")]
     [SerializeField] private Transform player;
@@ -17,6 +19,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private int idx = 0;
 
     private float time;
+    private int count = 0;
     
     
     void  Start()
@@ -26,12 +29,12 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-       /*time += Time.deltaTime;
-       if (time > 10)
+       time += Time.deltaTime;
+       if (time > spawnRate && count < spawnAmount)
        {
            SpawnEnemy();
            time = 0;
-       }*/
+       }
     }
 
     void SpawnEnemy()
@@ -40,5 +43,6 @@ public class EnemySpawner : MonoBehaviour
         AgentAI newEnemyAgentAI = newEnemy.GetComponentInChildren<AgentAI>();
         newEnemyAgentAI.SetVariables(wayPoints,  player);
         idx = (idx + 1) % 2;
+        count++;
     }
 }
