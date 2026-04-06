@@ -44,6 +44,7 @@ public class ComputerLogin : MonoBehaviour
         float magnitude = 15f;
         float elapsed = 0f;
 
+        Time.timeScale = 1f;
         while (elapsed < duration)
         {
             float x = originalPosition.x + Random.Range(-1f, 1f) * magnitude;
@@ -51,7 +52,7 @@ public class ComputerLogin : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
-
+        Time.timeScale = 0f;
         inputFieldRect.localPosition = originalPosition;
         pinInputField.text = "";
         isShaking = false;
