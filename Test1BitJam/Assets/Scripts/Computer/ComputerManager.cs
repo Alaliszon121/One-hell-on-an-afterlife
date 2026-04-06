@@ -52,6 +52,11 @@ public class ComputerManager : MonoBehaviour
         Invoke(nameof(CloseComputer), 3f);
     }
 
+    public void CloseTem()
+    {
+        loginPanel.SetActive(false);
+        Time.timeScale = 1f;
+    }
     public void CloseComputer()
     {
         gameObject.SetActive(false);

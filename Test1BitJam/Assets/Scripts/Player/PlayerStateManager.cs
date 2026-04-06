@@ -24,9 +24,9 @@ public class PlayerStateManager : MonoBehaviour
     [SerializeField] private string redLayerName = "State_Red";
 
     [Header("Color Settings")]
-    [SerializeField] private Color whiteStateColor = Color.white;
-    [SerializeField] private Color blueStateColor = new Color(0.5f, 0.7f, 1f);
-    [SerializeField] private Color redStateColor = new Color(1f, 0.5f, 0.5f);
+    [SerializeField] public Color whiteStateColor = Color.white;
+    [SerializeField] public Color blueStateColor = new Color(0.5f, 0.7f, 1f);
+    [SerializeField] public Color redStateColor = new Color(1f, 0.5f, 0.5f);
 
     private ColorAdjustments colorAdjustments;
 
@@ -35,6 +35,9 @@ public class PlayerStateManager : MonoBehaviour
     private int redLayer;
 
     public System.Action<PlayerColorState> OnStateChanged;
+
+    private bool wasChangedToBlueBefore = false;
+    private bool wasChangedToRedBefore = false;
 
     private void Start()
     {
@@ -99,6 +102,16 @@ public class PlayerStateManager : MonoBehaviour
         currentState = newState;
         ApplyVisualChanges();
         OnStateChanged?.Invoke(currentState);
+        if(!wasChangedToRedBefore && currentState == PlayerColorState.Red)
+        {
+            QuestManager.Instance.CompleteQuest("2");
+            wasChangedToRedBefore = true;
+        }
+        else if (!wasChangedToBlueBefore && currentState == PlayerColorState.Blue)
+        {
+            QuestManager.Instance.CompleteQuest("3");
+            wasChangedToBlueBefore = true;
+        }
     }
 
     private void ApplyVisualChanges()

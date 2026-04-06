@@ -10,28 +10,47 @@ public class QuestJournalUI : MonoBehaviour
     [SerializeField] private GameObject questItemPrefab;
     [SerializeField] private Button openJournalButton;
 
+    [Header("Dependencies")]
+    [SerializeField] private PlayerStateManager playerStateManager;
+
     [Header("Columns")]
     [SerializeField] private Transform lockedColumn;
     [SerializeField] private Transform activeColumn;
     [SerializeField] private Transform completedColumn;
 
     private Dictionary<string, QuestUIItem> spawnedItems = new Dictionary<string, QuestUIItem>();
-
+    private Image buttonImage;
     private bool needsAttention = false;
     private bool isCurrentlyShaking = false;
     private Vector3 buttonOriginalPos;
+    private bool wasOpenedBefore = false;
 
     private void Start()
     {
-        journalPanel.SetActive(false);
+        journalPanel.SetActive(true);
         buttonOriginalPos = openJournalButton.transform.localPosition;
+        buttonImage = openJournalButton.GetComponent<Image>();
 
         openJournalButton.onClick.AddListener(ToggleJournal);
 
         QuestManager.Instance.OnQuestUnlocked += (q) => { HandleUpdate(q); };
         QuestManager.Instance.OnQuestCompleted += (q) => { HandleUpdate(q); };
 
+        if (playerStateManager != null)
+        {
+            playerStateManager.OnStateChanged += HandleStateChanged;
+        }
+
         InitializeJournal();
+        UpdateJournalButtonColor();
+    }
+
+    private void OnDestroy()
+    {
+        if (playerStateManager != null)
+        {
+            playerStateManager.OnStateChanged -= HandleStateChanged;
+        }
     }
 
     private void Update()
@@ -49,9 +68,17 @@ public class QuestJournalUI : MonoBehaviour
 
     public void ToggleJournal()
     {
+        if (!wasOpenedBefore)
+        {
+            QuestManager.Instance.CompleteQuest("0");
+            wasOpenedBefore = true;
+        }
+
         bool newState = !journalPanel.activeSelf;
         journalPanel.SetActive(newState);
         Time.timeScale = newState ? 0f : 1f;
+
+        UpdateJournalButtonColor();
 
         if (newState)
         {
@@ -59,6 +86,29 @@ public class QuestJournalUI : MonoBehaviour
             StopAllCoroutines();
             isCurrentlyShaking = false;
             openJournalButton.transform.localPosition = buttonOriginalPos;
+        }
+    }
+
+    private void HandleStateChanged(PlayerColorState newState)
+    {
+        UpdateJournalButtonColor();
+    }
+
+    private void UpdateJournalButtonColor()
+    {
+        if (buttonImage == null || playerStateManager == null) return;
+
+        if (journalPanel.activeSelf || playerStateManager.currentState == PlayerColorState.White)
+        {
+            buttonImage.color = Color.white;
+        }
+        else if (playerStateManager.currentState == PlayerColorState.Blue)
+        {
+            buttonImage.color = new Color(0.5f, 0.7f, 1f);
+        }
+        else if (playerStateManager.currentState == PlayerColorState.Red)
+        {
+            buttonImage.color = new Color(1f, 0.5f, 0.5f);
         }
     }
 
