@@ -17,8 +17,11 @@ public class AgentAI : MonoBehaviour
     [Header("Obiekt do rotacji")] 
     [SerializeField] private Transform enemyObject;
     
+    
+    
     private List<Transform> wayPoints;
     private Transform player;
+    private PlayerStateManager playerStateManager;
     
     private NavMeshAgent navMeshAgent;
     public bool isChasing = false;
@@ -27,12 +30,17 @@ public class AgentAI : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
+    
+    private void Start()
+    {
+        playerStateManager.OnStateChanged += StopEnemy;
+    }
 
     // Update is called once per frame
     void Update()
     {
         navMeshAgent.gameObject.transform.position = enemyObject.position;
-        if (wayPoints == null || player == null) return;
+        if (wayPoints == null || player == null || playerStateManager == null) return;
         if(!isChasing) Walking();
         else
         {
@@ -82,9 +90,16 @@ public class AgentAI : MonoBehaviour
         animator.SetBool("Spotted", false);
     }
     
-    public void SetVariables(List<Transform> wayPoints, Transform player)
+    public void SetVariables(List<Transform> wayPoints, Transform player, PlayerStateManager playerStateManager)
     {
         this.wayPoints = wayPoints;
         this.player = player;
+        this.playerStateManager = playerStateManager;
+    }
+
+    void StopEnemy(PlayerColorState state)
+    {
+        if((int)state == 2) animator.SetBool("Light", true);
+        else animator.SetBool("Light", false);
     }
 }
