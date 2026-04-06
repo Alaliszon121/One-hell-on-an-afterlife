@@ -9144,6 +9144,7 @@ MonoBehaviour:
   - {fileID: 2084002799}
   - {fileID: 1641598891}
   - {fileID: 1720779725}
+  playerStateManager: {fileID: 906442906}
   idx: 0
 --- !u!1 &290049456
 GameObject:
@@ -21964,6 +21965,7 @@ MonoBehaviour:
   - {fileID: 2111528825}
   - {fileID: 3458484}
   - {fileID: 1175246195}
+  playerStateManager: {fileID: 906442906}
   idx: 1
 --- !u!1001 &676952513
 PrefabInstance:
@@ -41186,6 +41188,7 @@ MonoBehaviour:
   - {fileID: 184697068}
   - {fileID: 1856146433}
   - {fileID: 1034125816}
+  playerStateManager: {fileID: 906442906}
   idx: 1
 --- !u!1 &1167797360
 GameObject:
@@ -45015,6 +45018,7 @@ MonoBehaviour:
   - {fileID: 317588143}
   - {fileID: 2090917185}
   - {fileID: 583234145}
+  playerStateManager: {fileID: 906442906}
   idx: 0
 --- !u!1 &1283964635
 GameObject:
@@ -48381,6 +48385,7 @@ MonoBehaviour:
   - {fileID: 571559326}
   - {fileID: 1925524484}
   - {fileID: 1318894782}
+  playerStateManager: {fileID: 906442906}
   idx: 0
 --- !u!1 &1376594915
 GameObject:

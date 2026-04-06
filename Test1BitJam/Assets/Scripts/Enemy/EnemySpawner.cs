@@ -14,6 +14,9 @@ public class EnemySpawner : MonoBehaviour
     
     [Header("Waypointy")]
     [SerializeField] private List<Transform> wayPoints;
+    
+    [Header("Player state manager gracza")]
+    [SerializeField] private PlayerStateManager playerStateManager;
 
     [Header("Którego przeciwnika ma najpierw zrespić (0 lub 1)")]
     [SerializeField] private int idx = 0;
@@ -41,7 +44,7 @@ public class EnemySpawner : MonoBehaviour
     {
         var newEnemy = Instantiate(enemyPrefab[idx], enemyContainer);
         AgentAI newEnemyAgentAI = newEnemy.GetComponentInChildren<AgentAI>();
-        newEnemyAgentAI.SetVariables(wayPoints,  player);
+        newEnemyAgentAI.SetVariables(wayPoints,  player, playerStateManager);
         idx = (idx + 1) % 2;
         count++;
     }
