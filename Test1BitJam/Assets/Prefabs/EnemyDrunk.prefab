@@ -118,9 +118,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whiteFootprintPrefabA: {fileID: 9028458697343720503, guid: 08612bc491c71f14eb5f5a9738ebc691, type: 3}
-  offsetA: {x: -0.3, y: 0.359, z: 0}
+  offsetA: {x: -0.3, y: 0.3, z: 0}
   whiteFootprintPrefabB: {fileID: 1257901861245356911, guid: dbe71a884a5d54f42adf005b75ea0616, type: 3}
-  offsetB: {x: 0.3, y: 0.359, z: 0}
+  offsetB: {x: 0.3, y: 0.3, z: 0}
   spawnParent: {fileID: 5947980748746905746}
   blueFootprintPrefabA: {fileID: 9028458697343720503, guid: d9de15bbec8d7a547b00a9aa612f6cb0, type: 3}
   blueFootprintPrefabB: {fileID: 1257901861245356911, guid: 76eec160ea43b0f45bf828c26d84ec87, type: 3}
@@ -315,6 +315,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2106145266610383287, guid: df6145a2ccfdac845bba7afa17f81775, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bc17650c6e968249bbebc8c90a718e1, type: 2}
     - target: {fileID: 2715566404302941441, guid: df6145a2ccfdac845bba7afa17f81775, type: 3}
       propertyPath: m_Layer
       value: 10

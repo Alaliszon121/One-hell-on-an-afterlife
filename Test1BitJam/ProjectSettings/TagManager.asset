@@ -6,6 +6,7 @@ TagManager:
   tags:
   - outline
   - Enemy
+  - EndGame
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 public class PlayerInteractor : MonoBehaviour
 {
@@ -20,6 +24,11 @@ public class PlayerInteractor : MonoBehaviour
 
     private Material originalSharedMaterial;
     private Material instancedHighlightMaterial;
+
+    [Header("End Game Settings")]
+    [SerializeField] private string nextSceneName;
+    [SerializeField] private float fadeDuration = 2f;
+    [SerializeField] private Volume globalVolume;
 
     private void OnEnable()
     {
@@ -159,6 +168,29 @@ public class PlayerInteractor : MonoBehaviour
                 interactablesInRange.Add(interactable);
             }
         }
+        if (other.CompareTag("EndGame"))
+        {
+            other.enabled = false;
+            StartCoroutine(FadeAndEndGame());
+            return;
+        }
+    }
+
+    private IEnumerator FadeAndEndGame()
+    {
+        if (globalVolume.profile.TryGet(out ColorAdjustments colorAdjustments))
+        {
+            Color initialColor = colorAdjustments.colorFilter.value;
+            float time = 0;
+            while (time < fadeDuration)
+            {
+                colorAdjustments.colorFilter.value = Color.Lerp(initialColor, Color.black, time / fadeDuration);
+                time += Time.deltaTime;
+                yield return null;
+            }
+            colorAdjustments.colorFilter.value = Color.black;
+        }
+        SceneManager.LoadScene(nextSceneName);
     }
 
     private void OnTriggerExit(Collider other)

@@ -51,7 +51,7 @@ public class ComputerManager : MonoBehaviour
             QuestManager.Instance.CompleteQuest(hackingQuestId);
             happyBoss.SetActive(true);
             Destroy(sadBoss);
-            Destroy(pc.GetComponent<PCInteractable>());
+            //Destroy(pc.GetComponent<PCInteractable>());
         }
 
         isPcLocked = true;
