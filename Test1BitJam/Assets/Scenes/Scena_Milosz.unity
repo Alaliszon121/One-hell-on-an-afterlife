@@ -905,7 +905,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6d818fc5670174a91a171efd8191c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 8211704086246603231, guid: ec3f914ff256c6944ad3790d92432bff, type: 3}
+  enemyPrefab:
+  - {fileID: 8211704086246603231, guid: cd26ff0997773fe4ea47e2535bc3ce10, type: 3}
+  - {fileID: 8211704086246603231, guid: ec3f914ff256c6944ad3790d92432bff, type: 3}
   enemyContainer: {fileID: 2062295509}
   player: {fileID: 1021393397}
   wayPoints:
@@ -913,6 +915,7 @@ MonoBehaviour:
   - {fileID: 1336026227}
   - {fileID: 1094891213}
   - {fileID: 1644967387}
+  idx: 0
 --- !u!1 &428555157
 GameObject:
   m_ObjectHideFlags: 0

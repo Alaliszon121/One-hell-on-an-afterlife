@@ -7,7 +7,7 @@ public class EnemyAggroTrigger : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            AgentAI agentAI = other.gameObject.GetComponent<AgentAI>();
+            AgentAI agentAI = other.gameObject.GetComponentInChildren<AgentAI>();
             if (agentAI.isChasing) return;
             
             Vector3 target = other.transform.position;
@@ -28,7 +28,7 @@ public class EnemyAggroTrigger : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            AgentAI agentAI = other.gameObject.GetComponent<AgentAI>();
+            AgentAI agentAI = other.gameObject.GetComponentInChildren<AgentAI>();
             agentAI.StopChasing();
         }
     }

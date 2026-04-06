@@ -187,7 +187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2570879247539368730}
   m_Layer: 10
-  m_Name: Enemy
+  m_Name: EnemyDrunkOld
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -408,7 +408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: df6145a2ccfdac845bba7afa17f81775, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8817898888258712963, guid: df6145a2ccfdac845bba7afa17f81775, type: 3}
       propertyPath: m_Layer

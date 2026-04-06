@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,6 +10,12 @@ public class AgentAI : MonoBehaviour
     
     [Header("Animator przeciwnika")]
     [SerializeField] private Animator animator;
+
+    [Header("Jak szybko obraca się przeciwnik")]
+    [SerializeField] private float rotationSpeed = 4f;
+
+    [Header("Obiekt do rotacji")] 
+    [SerializeField] private Transform enemyObject;
     
     private List<Transform> wayPoints;
     private Transform player;
@@ -24,6 +31,7 @@ public class AgentAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        navMeshAgent.gameObject.transform.position = enemyObject.position;
         if (wayPoints == null || player == null) return;
         if(!isChasing) Walking();
         else
@@ -35,6 +43,16 @@ public class AgentAI : MonoBehaviour
                 player.position = spawnPointPosition;
             }
             else navMeshAgent.SetDestination(player.position);
+        }
+        
+        Vector3 direction = navMeshAgent.desiredVelocity;
+        direction.y = 0f;
+
+        if (direction.magnitude > 0.1f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+            enemyObject.rotation = Quaternion.Slerp(enemyObject.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
 
