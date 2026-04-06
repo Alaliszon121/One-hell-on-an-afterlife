@@ -73,14 +73,15 @@ public class NPCInteractable : MonoBehaviour, IInteractable
         isTalking = false;
         currentLineIndex = 0;
         dialogueCanvas.SetActive(false);
-        if (isQuest) { 
-            QuestManager.Instance.CompleteQuest(questID); 
-            isQuest = false; 
-        }
         if (shouldUnlockQuest)
         {
             QuestManager.Instance.UnlockQuest(questToUnlock);
         }
+        if (isQuest) { 
+            QuestManager.Instance.CompleteQuest(questID); 
+            isQuest = false; 
+        }
+        
     }
 
     public Transform GetTransform()

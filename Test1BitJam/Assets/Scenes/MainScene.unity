@@ -1600,7 +1600,7 @@ Transform:
   m_GameObject: {fileID: 90614027}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
-  m_LocalPosition: {x: 37, y: 13.743925, z: 0.5797974}
+  m_LocalPosition: {x: 38, y: 13.743925, z: 0.5797974}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5500,6 +5500,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6ac124593663f7c42806778ab062200d, type: 3}
   m_PrefabInstance: {fileID: 263719223}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &271390670 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8089993295620429182, guid: c144601c9272536408f946939e883ec2, type: 3}
+  m_PrefabInstance: {fileID: 1858282638107187426}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &271390674 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3586690121913973928, guid: c144601c9272536408f946939e883ec2, type: 3}
@@ -5613,6 +5618,11 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2432090755550338912, guid: a30679ae83c70aa4e84f70efb30ea24f, type: 3}
+--- !u!1 &278203843 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6934795082088813204, guid: 9c78360f7f5f9314fbf37e04c8dd6404, type: 3}
+  m_PrefabInstance: {fileID: 1531313397}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &286042838
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7626,6 +7636,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1531313398}
     m_Modifications:
+    - target: {fileID: -9070493210130169274, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
       propertyPath: m_LocalScale.x
       value: 50
@@ -7678,14 +7692,118 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 1.159
       objectReference: {fileID: 0}
+    - target: {fileID: -7657966619581158213, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -6370085079684087283, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -6170625038081293824, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -5561550452697079657, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -5195048882033904264, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -4728426434207774260, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -4332706925441422008, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -3542885339558904099, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -3086436065929644917, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -2084811680363313996, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -1781356600409242780, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -1703473491307067327, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -1200856079203341021, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -751476226918971245, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -290750445479886849, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -203856693384778745, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 9171100556185337, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
       propertyPath: m_Name
       value: Sitting Thumbs Up
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1082271958561512970, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339101018200438765, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2106145266610383287, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: b84115325a738894ca9796a4dd169cc1, type: 2}
+    - target: {fileID: 2715566404302941441, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2898355158428612036, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135921509060577837, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3948933247560734027, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323162407277330719, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8817898888258712963, guid: 113a69a867de95f4b847cc34401ccacf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7745,8 +7863,12 @@ MonoBehaviour:
   dialogueCanvas: {fileID: 1531313400}
   dialogueText: {fileID: 1531313399}
   dialogueLines:
-  - Hejka naklejka
-  - Jestem Maciek
+  - "BOSS: And then Lisa said she won\u2019t\u2026 Wait a second.\r\n"
+  - "BOSS: What? You say I should check my phone? Huh?\r"
+  - "BOSS: Who\u2019s Agile_Not_Only_At_Work_1992? And why did they send me a picture
+    with a title that says\u2013\r\r\n"
+  - "BOSS: Oh. Oh. Excuse me, guys. I think I should make a\u2026 A call. Super important
+    business matter.\r\r\r\n"
   isQuest: 0
   questID: 0
   shouldUnlockQuest: 0
@@ -9099,7 +9221,7 @@ Transform:
   m_GameObject: {fileID: 406099991}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
-  m_LocalPosition: {x: 37, y: 10.2, z: 0.57979846}
+  m_LocalPosition: {x: 38.000008, y: 10.2, z: 0.57979465}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12209,7 +12331,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1914804286}
         m_TargetAssemblyTypeName: ComputerManager, Assembly-CSharp
-        m_MethodName: CloseTem
+        m_MethodName: CloseComputer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -29922,7 +30044,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7772a4b8ad71e8e4fa759a703d498403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  computerUIPanel: {fileID: 1914804285}
+  computerUIPanel: {fileID: 271390670}
+  mainComputerUIPanel: {fileID: 0}
   isQuestTrigger: 0
   questID: hack_pc_quest
   bathroom_quest: 6
@@ -32877,6 +33000,60 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!1 &1375743890 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5323162407277330719, guid: c972334af8dc5004da6a9a62fc3a7d3a, type: 3}
+  m_PrefabInstance: {fileID: 2116768420}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1375743893
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375743890}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.0143336225
+  m_Height: 0.050907217
+  m_Direction: 1
+  m_Center: {x: -0.000044352026, y: 0.022731211, z: 0.004399057}
+--- !u!114 &1375743894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375743890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df2383365654c646b5c188598b26e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueCanvas: {fileID: 1570910845}
+  dialogueText: {fileID: 1570910844}
+  dialogueLines:
+  - "BOSS: \u2026And then, she left me for a vibe coder guys. A vibe coder. She said
+    he has a bigger keyboard than me.\r"
+  - "BOSS: It\u2019s a good thing we have each other, pals. Real good. It\u2019s
+    true what they say: your co-workers are your second family.\r"
+  - "BOSS: I should post it on LinkedIn. \u201CWhat did divorce teach me about importance
+    of team communication\u201D.\r\r"
+  - "BOSS: #FuckYouLisaILoveMyCoworkerBobMoreThanIEverLovedYouAnyway\r\r\r"
+  isQuest: 0
+  questID: 0
+  shouldUnlockQuest: 1
+  questToUnlock: 4
 --- !u!1 &1376594915
 GameObject:
   m_ObjectHideFlags: 0
@@ -33872,8 +34049,8 @@ MonoBehaviour:
   - 2137
   isQuest: 1
   questID: 6
-  shouldUnlockQuest: 0
-  questToUnlock: 0
+  shouldUnlockQuest: 1
+  questToUnlock: 6
 --- !u!64 &1408425707
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -36116,6 +36293,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HappyBoss
       objectReference: {fileID: 0}
+    - target: {fileID: 6934795082088813204, guid: 9c78360f7f5f9314fbf37e04c8dd6404, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7367596236900740225, guid: 9c78360f7f5f9314fbf37e04c8dd6404, type: 3}
       propertyPath: m_LocalPosition.x
       value: 32.56088
@@ -36155,6 +36336,14 @@ PrefabInstance:
     - target: {fileID: 7367596236900740225, guid: 9c78360f7f5f9314fbf37e04c8dd6404, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638232603697806151, guid: 9c78360f7f5f9314fbf37e04c8dd6404, type: 3}
+      propertyPath: m_fontSize
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638232603697806151, guid: 9c78360f7f5f9314fbf37e04c8dd6404, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -39698,6 +39887,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1809425565221974717, guid: 9c78360f7f5f9314fbf37e04c8dd6404, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6934795082088813204, guid: 9c78360f7f5f9314fbf37e04c8dd6404, type: 3}
       propertyPath: m_Name
       value: LonelyBoss
@@ -39753,6 +39946,19 @@ PrefabInstance:
     - target: {fileID: 7367596236900740225, guid: 9c78360f7f5f9314fbf37e04c8dd6404, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638232603697806151, guid: 9c78360f7f5f9314fbf37e04c8dd6404, type: 3}
+      propertyPath: m_text
+      value: "BOSS: It\u2019s a good thing we have each other, pals. Real good. It\u2019s
+        true what they say: your co-workers are your second family."
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638232603697806151, guid: 9c78360f7f5f9314fbf37e04c8dd6404, type: 3}
+      propertyPath: m_fontSize
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638232603697806151, guid: 9c78360f7f5f9314fbf37e04c8dd6404, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -40817,7 +41023,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1562244114186271554, guid: 4115600d099bda74ea161c67eece16fa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 37
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 1562244114186271554, guid: 4115600d099bda74ea161c67eece16fa, type: 3}
       propertyPath: m_LocalPosition.y
@@ -46942,17 +47148,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dea06488b78860d48b301eb259e08b62, type: 3}
   m_PrefabInstance: {fileID: 1911193258}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1914804285 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6407238914093035221, guid: c144601c9272536408f946939e883ec2, type: 3}
-  m_PrefabInstance: {fileID: 1858282638107187426}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1914804286 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6366039900859871014, guid: c144601c9272536408f946939e883ec2, type: 3}
   m_PrefabInstance: {fileID: 1858282638107187426}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1914804285}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d13904d6a2685c44283e87f0c5e7bef5, type: 3}
@@ -48281,6 +48482,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!1 &1992128250 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6934795082088813204, guid: 9c78360f7f5f9314fbf37e04c8dd6404, type: 3}
+  m_PrefabInstance: {fileID: 1570910842}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2010638490
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49617,9 +49823,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c972334af8dc5004da6a9a62fc3a7d3a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2116768424}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c972334af8dc5004da6a9a62fc3a7d3a, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5323162407277330719, guid: c972334af8dc5004da6a9a62fc3a7d3a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2116768423}
+      addedObject: {fileID: 1375743894}
+    - targetCorrespondingSourceObject: {fileID: 5323162407277330719, guid: c972334af8dc5004da6a9a62fc3a7d3a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1375743893}
   m_SourcePrefab: {fileID: 100100000, guid: c972334af8dc5004da6a9a62fc3a7d3a, type: 3}
 --- !u!4 &2116768421 stripped
 Transform:
@@ -49631,32 +49840,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c972334af8dc5004da6a9a62fc3a7d3a, type: 3}
   m_PrefabInstance: {fileID: 2116768420}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2116768423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2116768422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6df2383365654c646b5c188598b26e99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueCanvas: {fileID: 1570910845}
-  dialogueText: {fileID: 1570910844}
-  dialogueLines:
-  - "BOSS: \u2026And then, she left me for a vibe coder guys. A vibe coder. She said
-    he has a bigger keyboard than me.\r"
-  - "BOSS: It\u2019s a good thing we have each other, pals. Real good. It\u2019s
-    true what they say: your co-workers are your second family.\r"
-  - "BOSS: I should post it on LinkedIn. \u201CWhat did divorce teach me about importance
-    of team communication\u201D.\r\r"
-  - "BOSS: #FuckYouLisaILoveMyCoworkerBobMoreThanIEverLovedYouAnyway\r\r\r"
-  isQuest: 0
-  questID: 0
-  shouldUnlockQuest: 1
-  questToUnlock: 4
 --- !u!65 &2116768424
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -49868,6 +50051,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6366039900859871014, guid: c144601c9272536408f946939e883ec2, type: 3}
+      propertyPath: sadBoss
+      value: 
+      objectReference: {fileID: 1992128250}
+    - target: {fileID: 6366039900859871014, guid: c144601c9272536408f946939e883ec2, type: 3}
+      propertyPath: happyBoss
+      value: 
+      objectReference: {fileID: 278203843}
     - target: {fileID: 6366039900859871014, guid: c144601c9272536408f946939e883ec2, type: 3}
       propertyPath: hackingQuestId
       value: 5

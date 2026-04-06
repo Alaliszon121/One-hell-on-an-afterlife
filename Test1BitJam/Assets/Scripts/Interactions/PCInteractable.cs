@@ -6,6 +6,7 @@ public class PCInteractable : MonoBehaviour, IInteractable
     [Header("Computer References")]
     [Tooltip("The Main Computer UI Canvas or the object holding ComputerManager")]
     [SerializeField] private GameObject computerUIPanel;
+    [SerializeField] private GameObject mainComputerUIPanel;
 
     [Header("Quest Settings")]
     [SerializeField] private bool isQuestTrigger = false;
@@ -44,10 +45,6 @@ public class PCInteractable : MonoBehaviour, IInteractable
             QuestManager.Instance.UnlockQuest(bathroom_quest);
             QuestManager.Instance.UnlockQuest(pc_quest);
         }
-        else
-        {
-            //CloseComputer();
-        }
     }
 
     public string GetInteractText()
@@ -68,19 +65,6 @@ public class PCInteractable : MonoBehaviour, IInteractable
         isUsingPC = true;
         computerUIPanel.SetActive(true);
 
-        if (isQuestTrigger)
-        {
-            if (completeOnInteraction)
-            {
-                //QuestManager.Instance.CompleteQuest(questID);
-            }
-            else
-            {
-                //QuestManager.Instance.UnlockQuest(questID);
-            }
-
-        }
-
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
@@ -93,6 +77,7 @@ public class PCInteractable : MonoBehaviour, IInteractable
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        Time.timeScale = 1f;
     }
 
     public Transform GetTransform()

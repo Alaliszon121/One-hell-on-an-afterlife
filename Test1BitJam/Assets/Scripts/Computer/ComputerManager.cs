@@ -16,6 +16,10 @@ public class ComputerManager : MonoBehaviour
 
     private bool isPcLocked = false;
 
+    public GameObject happyBoss;
+    public GameObject sadBoss;
+    public GameObject pc;
+
     private void OnEnable()
     {
         if (isPcLocked)
@@ -45,6 +49,9 @@ public class ComputerManager : MonoBehaviour
         if (QuestManager.Instance != null)
         {
             QuestManager.Instance.CompleteQuest(hackingQuestId);
+            happyBoss.SetActive(true);
+            Destroy(sadBoss);
+            Destroy(pc.GetComponent<PCInteractable>());
         }
 
         isPcLocked = true;
@@ -52,11 +59,6 @@ public class ComputerManager : MonoBehaviour
         Invoke(nameof(CloseComputer), 3f);
     }
 
-    public void CloseTem()
-    {
-        loginPanel.SetActive(false);
-        Time.timeScale = 1f;
-    }
     public void CloseComputer()
     {
         gameObject.SetActive(false);
