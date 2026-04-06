@@ -49,6 +49,7 @@ public class AgentAI : MonoBehaviour
             {
                 Vector3 spawnPointPosition = new  Vector3(GameManager.instance.spawnPoint.position.x, player.position.y, GameManager.instance.spawnPoint.position.z);
                 player.position = spawnPointPosition;
+                AudioManager.instance.PLaySFX(AudioManager.instance.boneSnap);
             }
             else navMeshAgent.SetDestination(player.position);
         }

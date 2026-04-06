@@ -3,17 +3,25 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager instance;
+    
     [Header("Audio Source")]
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioSource SFXSource;
     
     [Header("Audio Clips")]
     [SerializeField] AudioClip[] music;
+    [SerializeField] public AudioClip boneSnap;
     [SerializeField] float fadeDuration;
     [SerializeField] float fadeVolume;
     
     
     [SerializeField] private PlayerStateManager playerStateManager;
+    
+    void Awake()
+    {
+        instance = this;
+    }
     
     private void Start()
     {
@@ -56,5 +64,11 @@ public class AudioManager : MonoBehaviour
         }
         
         musicSource.volume = startVolume;
+    }
+
+    public void PLaySFX(AudioClip clip)
+    {
+        SFXSource.clip = clip;
+        SFXSource.Play();
     }
 }

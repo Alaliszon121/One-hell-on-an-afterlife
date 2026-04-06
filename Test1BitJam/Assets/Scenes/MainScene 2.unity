@@ -32666,6 +32666,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6f15bd3f664a676459a4801e48f79932, type: 3}
   - {fileID: 8300000, guid: 3f1d9764704f11e42ae692973564c244, type: 3}
   - {fileID: 8300000, guid: 8854aa774d3d7dd47bae21d0254c7ccb, type: 3}
+  boneSnap: {fileID: 8300000, guid: 70172f8509d6e3647b0e5ed11f8a4ec1, type: 3}
   fadeDuration: 0.1
   fadeVolume: 0
   playerStateManager: {fileID: 906442906}
