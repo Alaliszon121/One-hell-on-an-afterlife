@@ -33,7 +33,7 @@ public class AgentAI : MonoBehaviour
     
     private void Start()
     {
-        playerStateManager.OnStateChanged += StopEnemy;
+        playerStateManager.OnStateChanged += SetEnemyLightParameter;
     }
 
     // Update is called once per frame
@@ -45,11 +45,20 @@ public class AgentAI : MonoBehaviour
         else
         {
             float distanceToPlayer = Vector3.Distance(player.position, transform.position);
+            
+            if (distanceToPlayer <= 3.5 && !animator.GetBool("Stop")) StopEnemyParameter(true);
+            
             if (distanceToPlayer <= 2)
             {
                 Vector3 spawnPointPosition = new  Vector3(GameManager.instance.spawnPoint.position.x, player.position.y, GameManager.instance.spawnPoint.position.z);
                 player.position = spawnPointPosition;
                 AudioManager.instance.PLaySFX(AudioManager.instance.boneSnap);
+            }
+
+            if (navMeshAgent.pathStatus == NavMeshPathStatus.PathInvalid)
+            {
+                Walking();
+                StopChasing();
             }
             else navMeshAgent.SetDestination(player.position);
         }
@@ -98,9 +107,19 @@ public class AgentAI : MonoBehaviour
         this.playerStateManager = playerStateManager;
     }
 
-    void StopEnemy(PlayerColorState state)
+    void SetEnemyLightParameter(PlayerColorState state)
     {
         if((int)state == 2) animator.SetBool("Light", true);
-        else animator.SetBool("Light", false);
+        else
+        {
+            StopEnemyParameter(false);
+            animator.SetBool("Light", false);
+        }
+    }
+    
+    public void StopEnemyParameter(bool state)
+    {
+        animator.SetBool("Stop", state);
+        Debug.Log(state);
     }
 }

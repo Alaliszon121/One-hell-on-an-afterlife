@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class EnemyAggroTrigger : MonoBehaviour
 {
+    private SphereCollider sphereCollider;
+
+    void Awake()
+    {
+        sphereCollider = GetComponent<SphereCollider>();
+    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -16,9 +22,13 @@ public class EnemyAggroTrigger : MonoBehaviour
 
             if (Physics.Raycast(transform.position, direction,out var hit, distance))
             {
+                Debug.Log("Hit distance: " + hit.distance);
+                Debug.Log("Sphere radius: " + sphereCollider.radius);
+                
                 if (hit.collider.CompareTag("Enemy"))
                 {
                     agentAI.StartChasing();
+                    
                 }
             }
         }
@@ -30,6 +40,7 @@ public class EnemyAggroTrigger : MonoBehaviour
         {
             AgentAI agentAI = other.gameObject.GetComponentInChildren<AgentAI>();
             agentAI.StopChasing();
+            agentAI.StopEnemyParameter(false);
         }
     }
 }

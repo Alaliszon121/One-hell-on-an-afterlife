@@ -199,7 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWaypoint: 0
   animator: {fileID: 6027490907627265795}
-  rotationSpeed: 4
+  rotationSpeed: 6
   enemyObject: {fileID: 379955893014939001}
   isChasing: 0
 --- !u!1 &4005218949774485212
