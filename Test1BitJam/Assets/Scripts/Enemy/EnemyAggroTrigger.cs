@@ -13,7 +13,9 @@ public class EnemyAggroTrigger : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            
             AgentAI agentAI = other.gameObject.GetComponentInChildren<AgentAI>();
+            
             if (agentAI.isChasing) return;
             
             Vector3 target = other.transform.position;
@@ -22,9 +24,7 @@ public class EnemyAggroTrigger : MonoBehaviour
 
             if (Physics.Raycast(transform.position, direction,out var hit, distance))
             {
-                Debug.Log("Hit distance: " + hit.distance);
-                Debug.Log("Sphere radius: " + sphereCollider.radius);
-                
+                Debug.Log(hit.collider.gameObject.name);
                 if (hit.collider.CompareTag("Enemy"))
                 {
                     agentAI.StartChasing();

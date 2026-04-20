@@ -24,16 +24,19 @@ public class AgentAI : MonoBehaviour
     private PlayerStateManager playerStateManager;
     
     private NavMeshAgent navMeshAgent;
-    public bool isChasing = false;
+    [SerializeField] public bool isChasing = false;
+    private NavMeshPath path;
     
     void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        
     }
     
     private void Start()
     {
         playerStateManager.OnStateChanged += SetEnemyLightParameter;
+        path =  new NavMeshPath();
     }
 
     // Update is called once per frame
@@ -44,21 +47,23 @@ public class AgentAI : MonoBehaviour
         if(!isChasing) Walking();
         else
         {
-            float distanceToPlayer = Vector3.Distance(player.position, transform.position);
+            float distanceToPlayer = Vector3.Distance(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z), transform.position);
             
             if (distanceToPlayer <= 3.5 && !animator.GetBool("Stop")) StopEnemyParameter(true);
             
-            if (distanceToPlayer <= 2)
+            if (distanceToPlayer <= 1)
             {
                 Vector3 spawnPointPosition = new  Vector3(GameManager.instance.spawnPoint.position.x, player.position.y, GameManager.instance.spawnPoint.position.z);
                 player.position = spawnPointPosition;
                 AudioManager.instance.PLaySFX(AudioManager.instance.boneSnap);
             }
 
-            if (navMeshAgent.pathStatus == NavMeshPathStatus.PathInvalid)
+            navMeshAgent.CalculatePath(player.position, path);
+
+            if (path.status == NavMeshPathStatus.PathInvalid)
             {
-                Walking();
                 StopChasing();
+                Walking();
             }
             else navMeshAgent.SetDestination(player.position);
         }
@@ -81,6 +86,8 @@ public class AgentAI : MonoBehaviour
         float distanceToWaypoint = Vector3.Distance(wayPoints[currentWaypoint].position, transform.position);
 
         if (distanceToWaypoint <= 1) currentWaypoint = (currentWaypoint + 1) % wayPoints.Count;
+        
+        while(!navMeshAgent.CalculatePath(wayPoints[currentWaypoint].position, path)) currentWaypoint = (currentWaypoint + 1) % wayPoints.Count;
         
         navMeshAgent.SetDestination(wayPoints[currentWaypoint].position);
         
@@ -107,6 +114,11 @@ public class AgentAI : MonoBehaviour
         this.playerStateManager = playerStateManager;
     }
 
+    void SetEnemySpotParameter(bool state)
+    {
+        animator.SetBool("Spotted", state);
+    }
+
     void SetEnemyLightParameter(PlayerColorState state)
     {
         if((int)state == 2) animator.SetBool("Light", true);
@@ -120,6 +132,5 @@ public class AgentAI : MonoBehaviour
     public void StopEnemyParameter(bool state)
     {
         animator.SetBool("Stop", state);
-        Debug.Log(state);
     }
 }
