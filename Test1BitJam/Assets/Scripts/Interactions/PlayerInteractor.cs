@@ -202,6 +202,11 @@ public class PlayerInteractor : MonoBehaviour
             if (interactablesInRange.Contains(interactable))
             {
                 interactablesInRange.Remove(interactable);
+
+                if (DialogueManager.Instance != null && DialogueManager.Instance.IsDialogueActive)
+                {
+                    DialogueManager.Instance.ForceCloseDialogue();
+                }
             }
         }
     }

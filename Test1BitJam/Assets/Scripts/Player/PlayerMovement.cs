@@ -23,15 +23,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float currentStamina;
 
     private CharacterController controller;
-    private Camera mainCamera;
     private float lockedYPosition;
-
     private bool isExhausted = false;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        mainCamera = Camera.main;
         lockedYPosition = transform.position.y;
     }
 
@@ -50,6 +47,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovementAndStamina()
     {
+        // ZABEZPIECZENIE DIALOGOWE: Jeœli trwa wa¿ny dialog, ca³kowicie blokujemy ruch
+        if (DialogueManager.Instance != null && DialogueManager.Instance.IsDialogueActive && DialogueManager.Instance.BlocksMovement)
+        {
+            GameManager.instance.playerStatus.isWalking = false;
+            GameManager.instance.playerStatus.isRunning = false;
+            return;
+        }
+
         Vector2 inputVector = moveAction.action.ReadValue<Vector2>();
         bool isAttemptingToRun = runAction.action.IsPressed();
 
