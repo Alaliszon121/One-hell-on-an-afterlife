@@ -63,14 +63,13 @@ public class PCInteractable : MonoBehaviour, IInteractable
         if (computerUIPanel == null) return;
 
         isUsingPC = true;
-        computerUIPanel.SetActive(true);
+        UIManager.Instance.OpenPanel(computerUIPanel);
     }
 
     public void CloseComputer()
     {
         isUsingPC = false;
-        computerUIPanel.SetActive(false);
-        Time.timeScale = 1f;
+        UIManager.Instance.ClosePanel(computerUIPanel);
     }
 
     public Transform GetTransform()

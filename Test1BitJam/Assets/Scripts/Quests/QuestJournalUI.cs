@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class QuestJournalUI : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class QuestJournalUI : MonoBehaviour
     [SerializeField] private GameObject journalPanel;
     [SerializeField] private GameObject questItemPrefab;
     [SerializeField] private Button openJournalButton;
+
+    [Header("Input Settings")]
+    [Tooltip("Akcja do otwierania/zamykania dziennika (np. przypisana do klawisza J lub przycisku na padzie)")]
+    [SerializeField] private InputActionReference toggleJournalAction;
 
     [Header("Quest Trigger")]
     [Tooltip("The Quest to complete when opening journal for the first time")]
@@ -26,10 +31,32 @@ public class QuestJournalUI : MonoBehaviour
     private Vector3 buttonOriginalPos;
     private bool wasOpenedBefore = false;
 
+    private void OnEnable()
+    {
+        if (toggleJournalAction != null)
+        {
+            toggleJournalAction.action.Enable();
+            toggleJournalAction.action.performed += HandleJournalInput;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (toggleJournalAction != null)
+        {
+            toggleJournalAction.action.performed -= HandleJournalInput;
+            toggleJournalAction.action.Disable();
+        }
+    }
+
+    private void HandleJournalInput(InputAction.CallbackContext context)
+    {
+        ToggleJournal();
+    }
+
     private void Start()
     {
         gameObject.SetActive(true);
-        journalPanel.SetActive(true);
         buttonOriginalPos = openJournalButton.transform.localPosition;
         buttonImage = openJournalButton.GetComponent<Image>();
 
@@ -43,21 +70,27 @@ public class QuestJournalUI : MonoBehaviour
         InitializeJournal();
         UpdateJournalButtonColor();
 
-        QuestManager.Instance.UnlockQuest(openJournalQuest);
+        if (openJournalQuest != null)
+        {
+            QuestManager.Instance.UnlockQuest(openJournalQuest);
+        }
+
+        ToggleJournal();
     }
 
     private void OnDestroy()
     {
         DimensionManager.OnDimensionChanged -= HandleStateChanged;
+
+        if (QuestManager.Instance != null)
+        {
+            QuestManager.Instance.OnQuestUnlocked -= HandleUpdate;
+            QuestManager.Instance.OnQuestCompleted -= HandleUpdate;
+        }
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            ToggleJournal();
-        }
-
         if (needsAttention && Time.timeScale > 0 && !isCurrentlyShaking)
         {
             StartCoroutine(ShakeJournalButton());
@@ -75,13 +108,13 @@ public class QuestJournalUI : MonoBehaviour
             wasOpenedBefore = true;
         }
 
-        bool newState = !journalPanel.activeSelf;
-        journalPanel.SetActive(newState);
-        Time.timeScale = newState ? 0f : 1f;
+        UIManager.Instance.TogglePanel(journalPanel);
+
+        bool isOpen = journalPanel.activeSelf;
 
         UpdateJournalButtonColor();
 
-        if (newState)
+        if (isOpen)
         {
             needsAttention = false;
             StopAllCoroutines();
