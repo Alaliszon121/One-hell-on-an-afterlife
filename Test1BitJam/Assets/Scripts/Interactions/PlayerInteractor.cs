@@ -59,6 +59,8 @@ public class PlayerInteractor : MonoBehaviour
 
     private void HandleClosestInteractable()
     {
+        interactablesInRange.RemoveAll(interactable => interactable as UnityEngine.Object == null);
+
         if (interactablesInRange.Count == 0)
         {
             ClearCurrentTarget();

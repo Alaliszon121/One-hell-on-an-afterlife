@@ -11,8 +11,9 @@ public class ComputerManager : MonoBehaviour
     public GameObject matchPopupPanel;
 
     [Header("Quest Integration")]
-    [Tooltip("The ID of the quest to complete upon matching")]
-    public string hackingQuestId = "hack_pc_quest";
+    [Tooltip("The QuestSO to complete upon matching")]
+    public QuestSO hackingQuest;
+    public QuestSO bossMainQuest;
 
     private bool isPcLocked = false;
 
@@ -46,12 +47,12 @@ public class ComputerManager : MonoBehaviour
     {
         ShowPanel(matchPopupPanel);
 
-        if (QuestManager.Instance != null)
+        if (QuestManager.Instance != null && hackingQuest != null)
         {
-            QuestManager.Instance.CompleteQuest(hackingQuestId);
+            QuestManager.Instance.CompleteQuest(hackingQuest);
+            QuestManager.Instance.CompleteQuest(bossMainQuest);
             happyBoss.SetActive(true);
             Destroy(sadBoss);
-            //Destroy(pc.GetComponent<PCInteractable>());
         }
 
         isPcLocked = true;

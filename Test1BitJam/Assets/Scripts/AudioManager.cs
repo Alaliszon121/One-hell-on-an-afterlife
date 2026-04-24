@@ -15,9 +15,6 @@ public class AudioManager : MonoBehaviour
     [SerializeField] float fadeDuration;
     [SerializeField] float fadeVolume;
     
-    
-    [SerializeField] private PlayerStateManager playerStateManager;
-    
     void Awake()
     {
         instance = this;
@@ -25,9 +22,14 @@ public class AudioManager : MonoBehaviour
     
     private void Start()
     {
-        playerStateManager.OnStateChanged += ChangeMusic;
+        DimensionManager.OnDimensionChanged += ChangeMusic;
         musicSource.clip = music[0];
         musicSource.Play();
+    }
+
+    private void OnDestroy()
+    {
+        DimensionManager.OnDimensionChanged -= ChangeMusic;
     }
 
     private void ChangeMusic(PlayerColorState state)

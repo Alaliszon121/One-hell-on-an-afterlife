@@ -10,15 +10,16 @@ public class QuestJournalUI : MonoBehaviour
     [SerializeField] private GameObject questItemPrefab;
     [SerializeField] private Button openJournalButton;
 
-    [Header("Dependencies")]
-    [SerializeField] private PlayerStateManager playerStateManager;
+    [Header("Quest Trigger")]
+    [Tooltip("The Quest to complete when opening journal for the first time")]
+    [SerializeField] private QuestSO openJournalQuest;
 
     [Header("Columns")]
     [SerializeField] private Transform lockedColumn;
     [SerializeField] private Transform activeColumn;
     [SerializeField] private Transform completedColumn;
 
-    private Dictionary<string, QuestUIItem> spawnedItems = new Dictionary<string, QuestUIItem>();
+    private Dictionary<QuestSO, QuestUIItem> spawnedItems = new Dictionary<QuestSO, QuestUIItem>();
     private Image buttonImage;
     private bool needsAttention = false;
     private bool isCurrentlyShaking = false;
@@ -27,30 +28,27 @@ public class QuestJournalUI : MonoBehaviour
 
     private void Start()
     {
+        gameObject.SetActive(true);
         journalPanel.SetActive(true);
         buttonOriginalPos = openJournalButton.transform.localPosition;
         buttonImage = openJournalButton.GetComponent<Image>();
 
         openJournalButton.onClick.AddListener(ToggleJournal);
 
-        QuestManager.Instance.OnQuestUnlocked += (q) => { HandleUpdate(q); };
-        QuestManager.Instance.OnQuestCompleted += (q) => { HandleUpdate(q); };
+        QuestManager.Instance.OnQuestUnlocked += HandleUpdate;
+        QuestManager.Instance.OnQuestCompleted += HandleUpdate;
 
-        if (playerStateManager != null)
-        {
-            playerStateManager.OnStateChanged += HandleStateChanged;
-        }
+        DimensionManager.OnDimensionChanged += HandleStateChanged;
 
         InitializeJournal();
         UpdateJournalButtonColor();
+
+        QuestManager.Instance.UnlockQuest(openJournalQuest);
     }
 
     private void OnDestroy()
     {
-        if (playerStateManager != null)
-        {
-            playerStateManager.OnStateChanged -= HandleStateChanged;
-        }
+        DimensionManager.OnDimensionChanged -= HandleStateChanged;
     }
 
     private void Update()
@@ -70,7 +68,10 @@ public class QuestJournalUI : MonoBehaviour
     {
         if (!wasOpenedBefore)
         {
-            QuestManager.Instance.CompleteQuest("0");
+            if (openJournalQuest != null)
+            {
+                QuestManager.Instance.CompleteQuest(openJournalQuest);
+            }
             wasOpenedBefore = true;
         }
 
@@ -96,25 +97,21 @@ public class QuestJournalUI : MonoBehaviour
 
     private void UpdateJournalButtonColor()
     {
-        if (buttonImage == null || playerStateManager == null) return;
+        if (buttonImage == null) return;
 
-        if (journalPanel.activeSelf || playerStateManager.currentState == PlayerColorState.White)
-        {
+        PlayerColorState currentState = DimensionManager.CurrentState;
+
+        if (journalPanel.activeSelf || currentState == PlayerColorState.White)
             buttonImage.color = Color.white;
-        }
-        else if (playerStateManager.currentState == PlayerColorState.Blue)
-        {
+        else if (currentState == PlayerColorState.Blue)
             buttonImage.color = new Color(0.5f, 0.7f, 1f);
-        }
-        else if (playerStateManager.currentState == PlayerColorState.Red)
-        {
+        else if (currentState == PlayerColorState.Red)
             buttonImage.color = new Color(1f, 0.5f, 0.5f);
-        }
     }
 
-    private void HandleUpdate(Quest quest)
+    private void HandleUpdate(QuestSO quest)
     {
-        if (spawnedItems.TryGetValue(quest.id, out QuestUIItem uiItem))
+        if (spawnedItems.TryGetValue(quest, out QuestUIItem uiItem))
         {
             uiItem.UpdateStatus(quest);
             AssignToCorrectColumn(quest, uiItem);
@@ -151,17 +148,18 @@ public class QuestJournalUI : MonoBehaviour
 
     private void InitializeJournal()
     {
-        foreach (Quest q in QuestManager.Instance.allQuests)
+        foreach (QuestSO q in QuestManager.Instance.allQuests)
         {
             GameObject newObj = Instantiate(questItemPrefab);
             QuestUIItem uiItem = newObj.GetComponent<QuestUIItem>();
             uiItem.Setup(q);
-            spawnedItems.Add(q.id, uiItem);
+
+            spawnedItems.Add(q, uiItem);
             AssignToCorrectColumn(q, uiItem);
         }
     }
 
-    private void AssignToCorrectColumn(Quest quest, QuestUIItem uiItem)
+    private void AssignToCorrectColumn(QuestSO quest, QuestUIItem uiItem)
     {
         Transform targetParent = quest.isCompleted ? completedColumn : (quest.isUnlocked ? activeColumn : lockedColumn);
         uiItem.transform.SetParent(targetParent, false);

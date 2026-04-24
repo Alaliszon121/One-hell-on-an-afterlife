@@ -5,18 +5,18 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerStateManager : MonoBehaviour
 {
-    
-
     [Header("Current State")]
     public PlayerColorState currentState = PlayerColorState.White;
 
     [Header("Dependencies")]
-    [Tooltip("Input Action to go to the next state")]
     [SerializeField] private InputActionReference nextStateAction;
-    [Tooltip("Input Action to go to the previous state")]
     [SerializeField] private InputActionReference previousStateAction;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private Volume globalVolume;
+
+    [Header("Quest Integration")]
+    [SerializeField] private QuestSO redDimensionQuest;
+    [SerializeField] private QuestSO blueDimensionQuest;
 
     [Header("Layer Names")]
     [SerializeField] private string whiteLayerName = "State_White";
@@ -29,7 +29,6 @@ public class PlayerStateManager : MonoBehaviour
     [SerializeField] public Color redStateColor = new Color(1f, 0.5f, 0.5f);
 
     private ColorAdjustments colorAdjustments;
-
     private int whiteLayer;
     private int blueLayer;
     private int redLayer;
@@ -64,6 +63,9 @@ public class PlayerStateManager : MonoBehaviour
             previousStateAction.action.Enable();
             previousStateAction.action.performed += CyclePreviousState;
         }
+
+        //QuestManager.Instance.UnlockQuest(blueDimensionQuest);
+        //QuestManager.Instance.UnlockQuest(redDimensionQuest);
     }
 
     private void OnDisable()
@@ -85,7 +87,6 @@ public class PlayerStateManager : MonoBehaviour
     {
         int totalStates = System.Enum.GetValues(typeof(PlayerColorState)).Length;
         int nextStateIndex = ((int)currentState + 1) % totalStates;
-
         SetState((PlayerColorState)nextStateIndex);
     }
 
@@ -93,23 +94,24 @@ public class PlayerStateManager : MonoBehaviour
     {
         int totalStates = System.Enum.GetValues(typeof(PlayerColorState)).Length;
         int prevStateIndex = ((int)currentState - 1 + totalStates) % totalStates;
-
         SetState((PlayerColorState)prevStateIndex);
     }
 
     public void SetState(PlayerColorState newState)
     {
         currentState = newState;
+        DimensionManager.ChangeDimension(newState);
         ApplyVisualChanges();
         OnStateChanged?.Invoke(currentState);
-        if(!wasChangedToRedBefore && currentState == PlayerColorState.Red)
+
+        if (!wasChangedToRedBefore && currentState == PlayerColorState.Red)
         {
-            QuestManager.Instance.CompleteQuest("2");
+            if (redDimensionQuest != null) QuestManager.Instance.CompleteQuest(redDimensionQuest);
             wasChangedToRedBefore = true;
         }
         else if (!wasChangedToBlueBefore && currentState == PlayerColorState.Blue)
         {
-            QuestManager.Instance.CompleteQuest("3");
+            if (blueDimensionQuest != null) QuestManager.Instance.CompleteQuest(blueDimensionQuest);
             wasChangedToBlueBefore = true;
         }
     }

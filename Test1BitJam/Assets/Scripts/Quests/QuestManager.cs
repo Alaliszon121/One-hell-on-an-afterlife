@@ -2,32 +2,30 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public partial class QuestManager : MonoBehaviour
+public class QuestManager : MonoBehaviour
 {
     public static QuestManager Instance { get; private set; }
 
-    [Header("Quest Database")]
-    public List<Quest> allQuests = new List<Quest>();
+    [Header("Baza Questów")]
+    public List<QuestSO> allQuests = new List<QuestSO>();
 
-    [Header("Audio Settings")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip unlockSound;
     [SerializeField] private AudioClip completeSound;
 
-    public event Action<Quest> OnQuestUnlocked;
-    public event Action<Quest> OnQuestCompleted;
+    public event Action<QuestSO> OnQuestUnlocked;
+    public event Action<QuestSO> OnQuestCompleted;
 
     private void Awake()
     {
         if (Instance == null) { Instance = this; }
         else { Destroy(gameObject); }
-
-        if (audioSource == null) audioSource = GetComponent<AudioSource>();
+        
+        foreach (var q in allQuests) q.ResetState();
     }
 
-    public void UnlockQuest(string questId)
+    public void UnlockQuest(QuestSO quest)
     {
-        Quest quest = allQuests.Find(q => q.id == questId);
         if (quest != null && !quest.isUnlocked)
         {
             quest.isUnlocked = true;
@@ -36,25 +34,24 @@ public partial class QuestManager : MonoBehaviour
         }
     }
 
-    public void CompleteQuest(string questId)
+    public void CompleteQuest(QuestSO quest)
     {
-        Quest quest = allQuests.Find(q => q.id == questId);
         if (quest != null && quest.isUnlocked && !quest.isCompleted)
         {
             quest.isCompleted = true;
             audioSource.PlayOneShot(completeSound);
             OnQuestCompleted?.Invoke(quest);
-            UnlockNextQuests(questId);
+            CheckAutoUnlocks(quest);
         }
     }
 
-    private void UnlockNextQuests(string completedQuestId)
+    private void CheckAutoUnlocks(QuestSO completedQuest)
     {
-        foreach (Quest q in allQuests)
+        foreach (QuestSO q in allQuests)
         {
-            if (q.previousQuestId == completedQuestId && !q.isUnlocked)
+            if (q.previousQuest == completedQuest && !q.isUnlocked)
             {
-                UnlockQuest(q.id);
+                UnlockQuest(q);
             }
         }
     }

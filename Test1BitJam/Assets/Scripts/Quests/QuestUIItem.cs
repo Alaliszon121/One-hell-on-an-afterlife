@@ -7,12 +7,12 @@ public class QuestUIItem : MonoBehaviour
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private TextMeshProUGUI statusText;
 
-    public void Setup(Quest quest)
+    public void Setup(QuestSO quest)
     {
         UpdateStatus(quest);
     }
 
-    public void UpdateStatus(Quest quest)
+    public void UpdateStatus(QuestSO quest)
     {
         if (quest.isCompleted)
         {

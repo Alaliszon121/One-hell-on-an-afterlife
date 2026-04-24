@@ -15,10 +15,7 @@ public class NPCInteractable : MonoBehaviour, IInteractable
 
     private int currentLineIndex = 0;
     private bool isTalking = false;
-    [SerializeField] private bool isQuest = false;
-    [SerializeField] private string questID = "0";
-    [SerializeField] private bool shouldUnlockQuest = false;
-    [SerializeField] private string questToUnlock = "0";
+
     private void Start()
     {
         if (dialogueCanvas != null)
@@ -68,20 +65,22 @@ public class NPCInteractable : MonoBehaviour, IInteractable
         }
     }
 
+    [SerializeField] private QuestSO questReference;
+    [SerializeField] private bool isQuestCompletionTrigger;
+    [SerializeField] private bool isQuestUnlockTrigger = false;
+
     private void EndDialogue()
     {
         isTalking = false;
-        currentLineIndex = 0;
         dialogueCanvas.SetActive(false);
-        if (shouldUnlockQuest)
+
+        if (questReference != null)
         {
-            QuestManager.Instance.UnlockQuest(questToUnlock);
+            if (isQuestUnlockTrigger)
+                QuestManager.Instance.UnlockQuest(questReference);
+            if (isQuestCompletionTrigger)
+                QuestManager.Instance.CompleteQuest(questReference);
         }
-        if (isQuest) { 
-            QuestManager.Instance.CompleteQuest(questID); 
-            isQuest = false; 
-        }
-        
     }
 
     public Transform GetTransform()

@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class PCInteractable : MonoBehaviour, IInteractable
 {
@@ -10,9 +11,9 @@ public class PCInteractable : MonoBehaviour, IInteractable
 
     [Header("Quest Settings")]
     [SerializeField] private bool isQuestTrigger = false;
-    [SerializeField] private string questID = "hack_pc_quest";
-    [SerializeField] private string bathroom_quest = "6";
-    [SerializeField] private string pc_quest = "5";
+
+    [SerializeField] private QuestSO hackPCQuest;
+    [SerializeField] private QuestSO bathroomQuest;
 
     [Tooltip("Should this interaction UNLOCK the quest or COMPLETE it?")]
     [SerializeField] private bool completeOnInteraction = false;
@@ -29,12 +30,12 @@ public class PCInteractable : MonoBehaviour, IInteractable
 
     public void OnInteract(GameObject interactor)
     {
-        if (QuestManager.Instance != null)
+        if (QuestManager.Instance != null && hackPCQuest != null)
         {
-            Quest quest = QuestManager.Instance.allQuests.Find(q => q.id == questID);
-            if (quest != null && quest.isCompleted)
+            if (hackPCQuest.isCompleted)
             {
                 Debug.Log("This computer has already been hacked.");
+                Destroy(this);
                 return;
             }
         }
@@ -42,17 +43,16 @@ public class PCInteractable : MonoBehaviour, IInteractable
         if (!isUsingPC)
         {
             OpenComputer();
-            QuestManager.Instance.UnlockQuest(bathroom_quest);
-            QuestManager.Instance.UnlockQuest(pc_quest);
+            if (bathroomQuest != null) QuestManager.Instance.UnlockQuest(bathroomQuest);
+            if (hackPCQuest != null) QuestManager.Instance.UnlockQuest(hackPCQuest);
         }
     }
 
     public string GetInteractText()
     {
-        if (QuestManager.Instance != null)
+        if (QuestManager.Instance != null && hackPCQuest != null)
         {
-            Quest quest = QuestManager.Instance.allQuests.Find(q => q.id == questID);
-            if (quest != null && quest.isCompleted) return "Locked (Hacked)";
+            if (hackPCQuest.isCompleted) return "Locked (Hacked)";
         }
 
         return isUsingPC ? "Exit Computer" : "Use Computer";
@@ -64,19 +64,12 @@ public class PCInteractable : MonoBehaviour, IInteractable
 
         isUsingPC = true;
         computerUIPanel.SetActive(true);
-
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
     }
 
     public void CloseComputer()
     {
         isUsingPC = false;
         computerUIPanel.SetActive(false);
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         Time.timeScale = 1f;
     }
 

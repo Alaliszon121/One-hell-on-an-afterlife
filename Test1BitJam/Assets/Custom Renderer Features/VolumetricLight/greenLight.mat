@@ -47,13 +47,13 @@ Material:
     m_Ints: []
     m_Floats:
     - Boolean_52C16ADA: 0
-    - Vector1_C436030E: 0.05
-    - Vector1_D9BD7578: 0.1
+    - Vector1_C436030E: 1
+    - Vector1_D9BD7578: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - Color_686BCB55: {r: 0.105633736, g: 1, b: 0, a: 0}
-    - _BaseColor: {r: 0.19464922, g: 1, b: 0, a: 0}
+    - Color_686BCB55: {r: 1, g: 0, b: 0, a: 1}
+    - _BaseColor: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &7317995290135093868
