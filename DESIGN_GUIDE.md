@@ -30,7 +30,7 @@ Po stworzeniu pliku `QuestSO`, musisz odnaleźć na scenie obiekt **QuestManager
 
 ## 2. System Dialogów
 
-Dialogi pozwalają na tworzenie kinowych rozmów, wyborów moralnych oraz płynne przeplatanie narracji z questami. Każdy plik dialogu to jeden "węzeł" (node) rozmowy.
+Dialogi pozwalają na tworzenie rozmów, wyborów i przeplatanie narracji z questami. Każdy plik dialogu to jeden "węzeł" (node) rozmowy.
 
 ### Jak stworzyć nowy Dialog?
 1. Przejdź do folderu `Assets/Data/Dialogues`.
@@ -67,7 +67,7 @@ Kiedy masz już gotowe pliki i drzewko rozmowy, musisz przypisać je do modelu 3
 2. Upewnij się, że obiekt ma standardowy **Collider** (np. `BoxCollider`).
 3. Dodaj do obiektu komponent (skrypt): **Dialogue Trigger**.
 4. W polu **Dialogue** w tym skrypcie, przeciągnij swój plik `DialogueSO` (ten, od którego rozmowa ma się rozpocząć).
-5. Obiekt *musi* znajdować się na warstwie, która pozwala na interakcję (najczęściej: BLUE). Zostanie automatycznie podświetlony, gdy gracz do niego podejdzie, a tekst interakcji zmieni się na "Rozmawiaj" lub "Kontynuuj" w zależności od stanu.
+5. Obiekt *musi* znajdować się na warstwie, która pozwala na interakcję (najczęściej: BLUE). Zostanie automatycznie podświetlony, gdy gracz do niego podejdzie, a tekst interakcji (debug log w konsoli) zmieni się na "Rozmawiaj" lub "Kontynuuj" w zależności od stanu.
 
 ---
 
