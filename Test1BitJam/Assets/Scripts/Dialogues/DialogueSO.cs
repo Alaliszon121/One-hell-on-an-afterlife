@@ -6,7 +6,6 @@ public class DialogueSO : ScriptableObject
 {
     [Header("Ustawienia Rozmowy")]
     public bool canWalkAway = true;
-    [Tooltip("Czas przerwy miêdzy literami (np. 0.03). Im mniejszy, tym szybciej pojawia siê tekst.")]
     public float typingSpeed = 0.03f;
 
     public List<DialogueLine> lines;
@@ -20,7 +19,13 @@ public class DialogueLine
     public Sprite speakerIcon;
     [TextArea(3, 10)]
     public string text;
-    public AudioClip voiceClip;
+
+    [Header("Audio")]
+    [Tooltip("Pojedynczy d³ugi plik z dubbingiem.")]
+    public AudioClip dubbingClip;
+
+    [Tooltip("Audio Random Container dla babblingu.")]
+    public AudioClip babbleContainer;
 }
 
 [System.Serializable]
@@ -29,5 +34,4 @@ public class DialogueChoice
     public string choiceText;
     public DialogueSO nextDialogue;
     public QuestSO questToUnlock;
-    public QuestSO questToComplete;
 }

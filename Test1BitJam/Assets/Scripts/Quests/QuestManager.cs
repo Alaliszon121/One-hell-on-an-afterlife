@@ -22,6 +22,8 @@ public class QuestManager : MonoBehaviour
         else { Destroy(gameObject); }
         
         foreach (var q in allQuests) q.ResetState();
+
+        UnlockQuest(allQuests[0]);
     }
 
     public void UnlockQuest(QuestSO quest)

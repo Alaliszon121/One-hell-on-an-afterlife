@@ -24,6 +24,7 @@ public class DialogueManager : MonoBehaviour
     private Coroutine typingCoroutine;
     private bool isTyping = false;
     private string currentFullText;
+    private AudioSource currentNpcSource;
 
     public DialogueSO currentDialogue { get; private set; }
     public bool IsDialogueActive => dialoguePanel.activeSelf;
@@ -34,11 +35,13 @@ public class DialogueManager : MonoBehaviour
     private void OnEnable() => continueAction?.action.Enable();
     private void OnDisable() => continueAction?.action.Disable();
 
-    public void StartDialogue(DialogueSO dialogue)
+    public void StartDialogue(DialogueSO dialogue, AudioSource npcSource)
     {
         if (IsDialogueActive && currentDialogue == dialogue) return;
 
         currentDialogue = dialogue;
+        currentNpcSource = npcSource;
+
         if (currentDialogueCoroutine != null) StopCoroutine(currentDialogueCoroutine);
 
         ClearChoices();
@@ -51,44 +54,40 @@ public class DialogueManager : MonoBehaviour
         foreach (var line in dialogue.lines)
         {
             nameText.text = line.speakerName;
+            speakerIcon.gameObject.SetActive(line.speakerIcon != null);
+            if (line.speakerIcon != null) speakerIcon.sprite = line.speakerIcon;
 
-            if (line.speakerIcon != null)
-            {
-                speakerIcon.gameObject.SetActive(true);
-                speakerIcon.sprite = line.speakerIcon;
-            }
-            else
-            {
-                speakerIcon.gameObject.SetActive(false);
-            }
+            // DUBBING: 2D
+            if (AudioManager.instance != null) AudioManager.instance.PlayVoice(line.dubbingClip);
 
-            if (line.voiceClip != null) AudioManager.instance.PLaySFX(line.voiceClip);
+            // BABBLING: 3D
+            if (currentNpcSource != null && line.babbleContainer != null)
+            {
+                currentNpcSource.resource = line.babbleContainer;
+                currentNpcSource.Play();
+            }
 
             currentFullText = line.text;
             typingCoroutine = StartCoroutine(TypeEffect(currentFullText, dialogue.typingSpeed));
 
             yield return new WaitUntil(() => !isTyping || continueAction.action.WasPressedThisFrame());
 
+            if (AudioManager.instance != null) AudioManager.instance.StopVoice();
+            if (currentNpcSource != null) currentNpcSource.Stop();
+
             if (isTyping)
             {
                 StopCoroutine(typingCoroutine);
                 isTyping = false;
                 bodyText.text = currentFullText;
-
                 yield return null;
             }
 
             yield return new WaitUntil(() => continueAction.action.WasPressedThisFrame());
         }
 
-        if (dialogue.choices.Count > 0)
-        {
-            ShowChoices(dialogue.choices);
-        }
-        else
-        {
-            EndDialogue();
-        }
+        if (dialogue.choices.Count > 0) ShowChoices(dialogue.choices);
+        else EndDialogue();
     }
 
     IEnumerator TypeEffect(string text, float speed)
@@ -111,38 +110,29 @@ public class DialogueManager : MonoBehaviour
             GameObject choiceObj = Instantiate(choicePrefab, choiceContainer);
             TextMeshProUGUI choiceText = choiceObj.GetComponentInChildren<TextMeshProUGUI>();
             if (choiceText != null) choiceText.text = choice.choiceText;
-
             Button button = choiceObj.GetComponent<Button>();
-            if (button != null)
-            {
-                button.onClick.AddListener(() => OnChoiceSelected(choice));
-            }
+            if (button != null) button.onClick.AddListener(() => OnChoiceSelected(choice));
         }
     }
 
     private void OnChoiceSelected(DialogueChoice choice)
     {
         ClearChoices();
-        if (choice.questToUnlock != null && QuestManager.Instance != null)
-            QuestManager.Instance.UnlockQuest(choice.questToUnlock);
-        if (choice.questToComplete != null && QuestManager.Instance != null)
-            QuestManager.Instance.CompleteQuest(choice.questToComplete);
-        
-        if (choice.nextDialogue != null)
-            currentDialogueCoroutine = StartCoroutine(PlayDialogue(choice.nextDialogue));
-        else
-            EndDialogue();
+        if (AudioManager.instance != null) AudioManager.instance.StopVoice();
+        if (currentNpcSource != null) currentNpcSource.Stop();
+        if (choice.nextDialogue != null) currentDialogueCoroutine = StartCoroutine(PlayDialogue(choice.nextDialogue));
+        else EndDialogue();
     }
 
-    private void ClearChoices()
-    {
-        foreach (Transform child in choiceContainer) Destroy(child.gameObject);
-    }
-
+    private void ClearChoices() { foreach (Transform child in choiceContainer) Destroy(child.gameObject); }
     public void ForceCloseDialogue()
     {
         if (currentDialogueCoroutine != null) StopCoroutine(currentDialogueCoroutine);
         if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+
+        if (AudioManager.instance != null) AudioManager.instance.StopVoice();
+        if (currentNpcSource != null) currentNpcSource.Stop();
+
         ClearChoices();
         EndDialogue();
     }
@@ -150,8 +140,7 @@ public class DialogueManager : MonoBehaviour
     private void EndDialogue()
     {
         UIManager.Instance.ClosePanel(dialoguePanel);
-        currentDialogueCoroutine = null;
-        typingCoroutine = null;
         currentDialogue = null;
+        currentNpcSource = null;
     }
 }

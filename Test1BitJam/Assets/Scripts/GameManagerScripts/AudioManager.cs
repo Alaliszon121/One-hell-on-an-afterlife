@@ -8,7 +8,8 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Source")]
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioSource SFXSource;
-    
+    [SerializeField] AudioSource voiceSource;
+
     [Header("Audio Clips")]
     [SerializeField] AudioClip[] music;
     [SerializeField] public AudioClip boneSnap;
@@ -70,7 +71,29 @@ public class AudioManager : MonoBehaviour
 
     public void PLaySFX(AudioClip clip)
     {
+        if (clip == null) return;
         SFXSource.clip = clip;
         SFXSource.Play();
+    }
+
+    public void PlayVoice(AudioClip clip)
+    {
+        if (clip == null || voiceSource == null) return;
+        voiceSource.clip = clip;
+        voiceSource.Play();
+    }
+
+    public void StopVoice()
+    {
+        if (voiceSource != null && voiceSource.isPlaying)
+        {
+            voiceSource.Stop();
+        }
+    }
+
+    public void PlayBabble(AudioClip clip)
+    {
+        if (clip == null || SFXSource == null) return;
+        SFXSource.PlayOneShot(clip);
     }
 }

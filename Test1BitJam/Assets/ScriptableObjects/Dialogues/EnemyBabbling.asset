@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80a9c44d292e1bd4680528a9ac2116f6, type: 3}
+  m_Name: EnemyBabbling
+  m_EditorClassIdentifier: 
+  canWalkAway: 1
+  typingSpeed: 0.03
+  lines:
+  - speakerName: Angel
+    speakerIcon: {fileID: 0}
+    text: "We have to align it with the global roadmap, done by the book. \r\n"
+    dubbingClip: {fileID: 0}
+    babbleContainer: {fileID: 0}
+  - speakerName: Angel
+    speakerIcon: {fileID: 0}
+    text: 'No place for fuck-ups. Just forward this e-mail to the Scrum Master.
+
+'
+    dubbingClip: {fileID: 0}
+    babbleContainer: {fileID: 0}
+  - speakerName: Angel
+    speakerIcon: {fileID: 0}
+    text: "Have you met the story points already? Sprint is coming to an end.\r"
+    dubbingClip: {fileID: 0}
+    babbleContainer: {fileID: 0}
+  choices: []

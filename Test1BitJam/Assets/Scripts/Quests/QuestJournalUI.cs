@@ -29,7 +29,9 @@ public class QuestJournalUI : MonoBehaviour
     private bool needsAttention = false;
     private bool isCurrentlyShaking = false;
     private Vector3 buttonOriginalPos;
+
     private bool wasOpenedBefore = false;
+    private bool openedViaCode = false;
 
     private void OnEnable()
     {
@@ -101,11 +103,14 @@ public class QuestJournalUI : MonoBehaviour
     {
         if (!wasOpenedBefore)
         {
-            if (openJournalQuest != null)
-            {
-                QuestManager.Instance.CompleteQuest(openJournalQuest);
+            if(openedViaCode) { 
+                if (openJournalQuest != null)
+                {
+                    QuestManager.Instance.CompleteQuest(openJournalQuest);
+                }
+                wasOpenedBefore = true;
             }
-            wasOpenedBefore = true;
+            openedViaCode = true;
         }
 
         UIManager.Instance.TogglePanel(journalPanel);
