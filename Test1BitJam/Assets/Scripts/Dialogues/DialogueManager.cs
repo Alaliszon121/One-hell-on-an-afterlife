@@ -57,10 +57,8 @@ public class DialogueManager : MonoBehaviour
             speakerIcon.gameObject.SetActive(line.speakerIcon != null);
             if (line.speakerIcon != null) speakerIcon.sprite = line.speakerIcon;
 
-            // DUBBING: 2D
             if (AudioManager.instance != null) AudioManager.instance.PlayVoice(line.dubbingClip);
 
-            // BABBLING: 3D
             if (currentNpcSource != null && line.babbleContainer != null)
             {
                 currentNpcSource.resource = line.babbleContainer;
@@ -120,6 +118,10 @@ public class DialogueManager : MonoBehaviour
         ClearChoices();
         if (AudioManager.instance != null) AudioManager.instance.StopVoice();
         if (currentNpcSource != null) currentNpcSource.Stop();
+        if (choice.questToUnlock != null && QuestManager.Instance != null)
+            QuestManager.Instance.UnlockQuest(choice.questToUnlock);
+        if (choice.questToComplete != null && QuestManager.Instance != null)
+            QuestManager.Instance.CompleteQuest(choice.questToComplete);
         if (choice.nextDialogue != null) currentDialogueCoroutine = StartCoroutine(PlayDialogue(choice.nextDialogue));
         else EndDialogue();
     }

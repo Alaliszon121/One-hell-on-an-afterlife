@@ -34,4 +34,5 @@ public class DialogueChoice
     public string choiceText;
     public DialogueSO nextDialogue;
     public QuestSO questToUnlock;
+    public QuestSO questToComplete;
 }
