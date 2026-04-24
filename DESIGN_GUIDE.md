@@ -13,7 +13,7 @@ Zadania w grze tworzą łańcuchy zdarzeń. Dodanie nowego zadania wymaga stworz
 ### Jak stworzyć nowy Quest?
 1. W oknie **Project** przejdź do folderu, w którym trzymamy dane (np. `Assets/Data/Quests`).
 2. Kliknij **Prawy Przycisk Myszy (PPM)** -> **Create** -> **System Questów** -> **Quest**.
-3. Nadaj plikowi czytelną nazwę (np. `Q01_ZnajdzKlucz`).
+3. Nadaj plikowi czytelną nazwę (np. `ZnajdzKlucz`).
 4. Kliknij na nowy plik i spójrz w okno **Inspector**.
 
 ### Wyjaśnienie Pól w Inspektorze:
