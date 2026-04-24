@@ -55,7 +55,7 @@ Rozwiń listę `Lines` i dodaj nowy element (przycisk `+`). Każdy element to je
 Po wyświetleniu wszystkich Linii, gracz może otrzymać opcje wyboru. Jeśli zostawisz tę listę pustą, okno dialogowe po prostu się zamknie. Jeśli chcesz dać wybór, rozwiń `Choices` i dodaj element:
 * **Choice Text:** Co będzie napisane na przycisku dla gracza (np. "Zgadzam się", "Muszę iść").
 * **Next Dialogue:** Plik `DialogueSO`, który załaduje się po kliknięciu tej opcji. **W ten sposób tworzysz drzewka dialogowe!** Zostaw puste, jeśli wybór ma po prostu zakończyć rozmowę.
-* **Quest To Unlock:** Plik `QuestSO`, który zostanie automatycznie wręczony graczowi po wybraniu tej opcji. Zostaw puste, jeśli wybór nie daje żadnego questa.
+* **Quest To Unlock/Complete:** Plik `QuestSO`, który zostanie automatycznie wręczony/zaliczony graczowi po wybraniu tej opcji. Zostaw puste, jeśli wybór nie daje/nie zalicza żadnego questa.
 
 ---
 
