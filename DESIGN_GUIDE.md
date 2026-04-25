@@ -108,3 +108,48 @@ Chcesz stworzyć sytuację, w której postać daje Ci zadanie dopiero, gdy będz
 7. Dodaj `DialogueTrigger` oraz `Audio Source` do modelu na scenie i przypisz mu `Dialog_Poczatek`.
 
 Gotowe! Stworzyłeś nieliniową narrację rozdającą zadania ze zintegrowanym systemem dźwięku przestrzennego, nie pisząc ani jednej linijki kodu.
+
+---
+
+## 5. Znaczniki Formatowania (TextMeshPro)
+
+System wykorzystuje tagi zbliżone do HTML (np. `<b>tekst</b>`). Tagi można zagnieżdżać, pamiętając o ich zamykaniu w odwróconej kolejności (np. `<b><color="red">tekst</color></b>`). 
+
+Oto kompletne zestawienie znaczników obsługiwanych przez system TextMeshPro:
+
+### Style i Transformacja
+* **`<b>...</b>`** – Pogrubienie tekstu.
+* **`<i>...</i>`** – Kursywa.
+* **`<u>...</u>`** – Podkreślenie.
+* **`<s>...</s>`** – Przekreślenie.
+* **`<lowercase>...</lowercase>`** – Wymusza małe litery.
+* **`<uppercase>...</uppercase>`** – Wymusza wielkie litery.
+* **`<smallcaps>...</smallcaps>`** – Wyświetla tekst jako kapitaliki (małe wielkie litery).
+
+### Kolor i Widoczność
+* **`<color="nazwa/HEX">...</color>`** – Zmienia kolor (np. `red`, `blue`, `yellow` lub `<color=#FF0000>`).
+* **`<alpha=#FF>`** – Ustawia przezroczystość tekstu w skali szesnastkowej (od `00` do `FF`). Zmiana dotyczy całego tekstu po tagu.
+* **`<mark=#FFFF0080>...</mark>`** – Podświetla tło pod tekstem (działa jak marker).
+
+### Rozmiar i Skalowanie
+* **`<size=X>...</size>`** – Skaluje tekst (wartość absolutna np. `14`, lub procentowa np. `150%`).
+* **`<sub>...</sub>`** – Indeks dolny (np. H<sub>2</sub>O).
+* **`<sup>...</sup>`** – Indeks górny (np. m<sup>2</sup>).
+
+### Pozycjonowanie i Spacing
+* **`<align=X>...</align>`** – Wyrównanie w poziomie (`left`, `right`, `center`, `justified`, `flush`).
+* **`<line-height=X>...</line-height>`** – Odstępy między wierszami (np. `150%`).
+* **`<cspace=X>...</cspace>`** – Zmienia odstępy między znakami (kerning, np. `1em`).
+* **`<space=X>`** – Wstawia puste miejsce w linii o określonej szerokości.
+* **`<margin=X>...</margin>`** – Określa marginesy boczne akapitu (np. `10%`).
+* **`<indent=X>...</indent>`** – Dodaje wcięcie tylko do pierwszego wiersza akapitu.
+* **`<pos=X>`** – Przesuwa karetkę do konkretnej pozycji poziomej w bieżącej linii (np. `50%`).
+* **`<voffset=X>...</voffset>`** – Przesuwa dany fragment tekstu w pionie (np. `1em` lub `-1em`).
+
+### Zasoby i Funkcje Specjalne
+* **`<sprite=X>`** lub **`<sprite name="X">`** – Wstawia obrazek/ikonkę z przypisanego zasobu *Sprite Asset*.
+* **`<font="Nazwa">...</font>`** – Zmienia czcionkę na inną (plik musi znajdować się w folderze *Resources*).
+* **`<link="ID">...</link>`** – Tworzy interaktywny fragment, na który można kliknąć (wymaga logiki w kodzie C#).
+* **`<nobr>...</nobr>`** – Wiąże słowa ze sobą, zapobiegając przełamaniu linii w połowie frazy.
+* **`<noparse>...</noparse>`** – Ignoruje inne tagi wewnątrz, traktując je jako zwykły tekst (przydatne np. do pokazywania kodu).
+* **`<page>`** – Sztucznie dzieli blok tekstu na strony (przydatne w listach lub książkach).
