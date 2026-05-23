@@ -13,6 +13,9 @@ public class PlayerInteractor : MonoBehaviour
 
     [Header("Input Settings")]
     [SerializeField] private InputActionReference interactAction;
+    
+    [Header("Place to spawn items in inventory")]
+    [SerializeField] private RectTransform itemsArea;
 
     [Header("Highlight Settings")]
     [Tooltip("How much lighter the object becomes. Multiplies the base color for emission.")]
@@ -163,6 +166,13 @@ public class PlayerInteractor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Item"))
+        {
+            var worldItemScript = other.GetComponent<WorldItemScript>();
+            var item = Instantiate(worldItemScript.itemPrefab, itemsArea, false);
+            worldItemScript.inventoryItemGameObject = item;
+        }
+
         if (other.TryGetComponent<IInteractable>(out IInteractable interactable))
         {
             if (!interactablesInRange.Contains(interactable))
@@ -197,6 +207,22 @@ public class PlayerInteractor : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if (other.CompareTag("Item"))
+        {
+            var worldItemScript = other.GetComponent<WorldItemScript>();
+
+            if (worldItemScript == null) return;
+
+            if (worldItemScript.inventoryItemGameObject == null) return;
+
+            if (worldItemScript.inventoryItemGameObject.TryGetComponent<InventoryItemScript>(out var inventoryItemScript))
+            {
+                inventoryItemScript.TryToRemove();
+
+                worldItemScript.inventoryItemGameObject = null;
+            }
+        }
+        
         if (other.TryGetComponent<IInteractable>(out IInteractable interactable))
         {
             if (interactablesInRange.Contains(interactable))

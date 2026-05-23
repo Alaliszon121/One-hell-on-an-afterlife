@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if(GameManager.instance.playerStatus.isInventoryOpen) return;
         HandleMovementAndStamina();
     }
 
@@ -47,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovementAndStamina()
     {
-        // ZABEZPIECZENIE DIALOGOWE: Jeœli trwa wa¿ny dialog, ca³kowicie blokujemy ruch
+        // ZABEZPIECZENIE DIALOGOWE: Jeï¿½li trwa waï¿½ny dialog, caï¿½kowicie blokujemy ruch
         if (DialogueManager.Instance != null && DialogueManager.Instance.IsDialogueActive && DialogueManager.Instance.BlocksMovement)
         {
             GameManager.instance.playerStatus.isWalking = false;
