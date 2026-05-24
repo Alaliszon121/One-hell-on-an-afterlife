@@ -11,5 +11,10 @@ namespace Items.Inventory
         {
             itemsNotInSuitcase = new List<GameObject>();
         }
+
+        public void TryToRemoveItem(GameObject item)
+        {
+            itemsNotInSuitcase.Remove(item);
+        }
     }
 }

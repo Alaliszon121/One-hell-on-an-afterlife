@@ -11,5 +11,6 @@ public class ItemStats : ScriptableObject
 
 public enum ItemType
 {
-    Crown = 0
+    None = 0,
+    Crown = 1
 }

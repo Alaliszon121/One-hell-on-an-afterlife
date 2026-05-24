@@ -14,7 +14,7 @@ public class InventoryGrid : MonoBehaviour
     private GridLayoutGroup _gridLayoutGroup;
     private RectTransform _rectTransform;
     
-    private Dictionary<Vector2Int, GameObject> _grid = new Dictionary<Vector2Int, GameObject>();
+    public Dictionary<Vector2Int, RectTransform> _grid = new  Dictionary<Vector2Int, RectTransform>();
 
     private void Awake()
     {
@@ -28,9 +28,36 @@ public class InventoryGrid : MonoBehaviour
         {
             for (int l = 0; l < columns; l++)
             {
-                _grid[new Vector2Int(i,l)] = Instantiate(slotUIPrefab, transform);
+                _grid[new Vector2Int(i,l)] = Instantiate(slotUIPrefab, transform).GetComponent<RectTransform>();
             }
         }
+    }
+
+    private void Start()
+    {
+        
+        foreach (KeyValuePair<Vector2Int, RectTransform> kvp in _grid)
+        {
+            Debug.Log(kvp.Key);
+            InventoryUI.Instance._suitcaseScript.spaceInSuitcase[kvp.Key] = ItemType.None;
+        }
+    }
+
+    public bool CanPlaceInGrid(Vector2 gridPosition)
+    {
+        if(gridPosition.x < slotWidth*columns/2 &&
+           gridPosition.x > -(slotWidth*columns/2) &&
+           gridPosition.y < slotHeight*rows/2 &&
+           gridPosition.y > -(slotHeight*rows/2)) return true;
+        else 
+            return false;
+    }
+
+    public Vector2Int CalculateGrid(Vector2 gridPosition)
+    {
+        int y = Mathf.FloorToInt(((slotWidth*columns/2) + gridPosition.x)/slotWidth);
+        int x = Mathf.FloorToInt(((slotHeight*rows/2) - gridPosition.y)/slotHeight);
+        return new Vector2Int(x, y);
     }
     
     

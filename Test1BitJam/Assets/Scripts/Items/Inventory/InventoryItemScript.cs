@@ -18,7 +18,7 @@ public class InventoryItemScript : MonoBehaviour
     {
         _itemPlaceholder =
             GetComponentInParent<InventoryItemPlaceholder>();
-        Debug.Log(_itemPlaceholder);
+        //Debug.Log(_itemPlaceholder);
         _itemPlaceholder.itemsNotInSuitcase.Add(gameObject);
         _image = GetComponent<Image>();
         _image.sprite = itemStats.sprites[0];

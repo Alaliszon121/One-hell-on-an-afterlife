@@ -1,13 +1,18 @@
 using System;
+using Items.Inventory;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class DraggableItem : MonoBehaviour , IDragHandler, IBeginDragHandler, IEndDragHandler,  IPointerEnterHandler, IPointerExitHandler
 {
+    
     private RectTransform _itemRectTransform;
     private Vector2 _startPosition;
     private RectTransform _itemArea;
     private bool onTrigger = false;
+    private bool canPlace = false;
+    private Vector2Int _gridPosition;
+    private InventoryItemPlaceholder _inventoryItemPlaceholder;
     
     string _itemName;
     string _itemDescription;
@@ -18,6 +23,9 @@ public class DraggableItem : MonoBehaviour , IDragHandler, IBeginDragHandler, IE
         _itemRectTransform = GetComponent<RectTransform>();
         _itemArea = transform.parent.GetComponent<RectTransform>();
         var inventoryItemScript =  GetComponent<InventoryItemScript>();
+        
+        _inventoryItemPlaceholder = GetComponentInParent<InventoryItemPlaceholder>();
+        
         _itemName = inventoryItemScript.itemName;
         _itemDescription = inventoryItemScript.itemDescription;
         
@@ -28,6 +36,25 @@ public class DraggableItem : MonoBehaviour , IDragHandler, IBeginDragHandler, IE
     public void OnDrag(PointerEventData eventData)
     {
         _itemRectTransform.anchoredPosition += eventData.delta;
+        
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            InventoryUI.Instance.GridRectTransform,
+            Camera.main.WorldToScreenPoint(_itemRectTransform.position),
+            Camera.main,
+            out Vector2 localPoint);
+
+        canPlace = InventoryUI.Instance.CanPlaceInGrid(localPoint);
+
+        if (!canPlace)
+        {
+            _gridPosition = new Vector2Int(-1, -1);
+            return;
+        }
+        
+
+        _gridPosition = InventoryUI.Instance.CalculateGrid(localPoint);
+        
+        Debug.Log(InventoryUI.Instance.CalculateGrid(localPoint));
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -36,6 +63,8 @@ public class DraggableItem : MonoBehaviour , IDragHandler, IBeginDragHandler, IE
        transform.SetAsLastSibling();
        TooltipInstance.instance.HideTooltip();
        _startPosition = _itemRectTransform.anchoredPosition;
+       
+       
        Cursor.visible = false;
     }
 
@@ -54,19 +83,19 @@ public class DraggableItem : MonoBehaviour , IDragHandler, IBeginDragHandler, IE
         Debug.Log(validPlace);
         
         
-        if (!validPlace)
+        if (validPlace) TooltipInstance.instance.ShowTooltip(_itemName, _itemDescription);
+        else if (canPlace && InventoryUI.Instance._suitcaseScript.spaceInSuitcase[_gridPosition] == ItemType.None && _gridPosition != new  Vector2Int(-1, -1))
         {
-            LeanTween.value(
-                gameObject,
-                _itemRectTransform.anchoredPosition,
-                _startPosition,
-                0.25f
-            ).setOnUpdate((Vector2 value) =>
-            {
-                _itemRectTransform.anchoredPosition = value;
-            }).setEaseOutBack();
+            Debug.Log(_itemName);
+            _itemRectTransform.position = InventoryUI.Instance._slotsRectTransform[_gridPosition].position;
+            InventoryUI.Instance._suitcaseScript.spaceInSuitcase[_gridPosition] = Enum.Parse<ItemType>(_itemName);
+            
+            _inventoryItemPlaceholder.TryToRemoveItem(gameObject);
+            
+            TooltipInstance.instance.ShowTooltip(_itemName, _itemDescription);
         }
-        else TooltipInstance.instance.ShowTooltip(_itemName, _itemDescription);
+        else SetBackItem();
+        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -80,5 +109,18 @@ public class DraggableItem : MonoBehaviour , IDragHandler, IBeginDragHandler, IE
     {
         TooltipInstance.instance.HideTooltip();
         
+    }
+
+    private void SetBackItem()
+    {
+        LeanTween.value(
+            gameObject,
+            _itemRectTransform.anchoredPosition,
+            _startPosition,
+            0.25f
+        ).setOnUpdate((Vector2 value) =>
+        {
+            _itemRectTransform.anchoredPosition = value;
+        }).setEaseOutBack();
     }
 }
