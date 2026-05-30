@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class TooltipInstance : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class TooltipInstance : MonoBehaviour
             out var localPoint
         );
 
-        rectTransform.localPosition = localPoint;
+        rectTransform.localPosition = (Vector3)localPoint + new Vector3(0,0,-35);
         
         Vector2 mousePos = Input.mousePosition;
 
@@ -54,8 +55,11 @@ public class TooltipInstance : MonoBehaviour
 
     public void ShowTooltip(string _itemName, string _itemDescription)
     {
-        itemName.text = _itemName;
+        itemName.text = _itemName.Replace("_", " ");
         itemDescription.text = _itemDescription;
+        
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
+        
         canvasGroup.alpha = 1;
     }
 

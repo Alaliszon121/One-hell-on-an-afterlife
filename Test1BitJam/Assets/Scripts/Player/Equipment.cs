@@ -116,6 +116,8 @@ namespace Player
     
         private void CloseInventoryAnimation()
         {
+            TooltipInstance.instance.HideTooltip();
+            
             LTSeq seq = LeanTween.sequence();
         
             LeanTween.cancel(suitcaseTop);
@@ -131,6 +133,12 @@ namespace Player
             });
         
             seq.append(animTime);
+
+            seq.append(() =>
+            {
+                InventoryUI.Instance._suitcaseScript.DestroyWorldItemsInSuitCase();
+                InventoryUI.Instance._inventoryItemPlaceholder.SpawnItems();
+            });
 
             suitcasePanelCanvasGroup.alpha = 0;
 

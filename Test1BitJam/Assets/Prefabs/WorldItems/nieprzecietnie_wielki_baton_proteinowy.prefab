@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 273912516971117990}
   - component: {fileID: 5738013700000452385}
   - component: {fileID: 8592768552140767919}
-  m_Layer: 0
-  m_Name: Crown_Item
+  m_Layer: 3
+  m_Name: nieprzecietnie_wielki_baton_proteinowy
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,4 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 562d12ede7ae4cf42b3e0430a4f69aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 3292912240473498271, guid: e210295f9e7c3714a9dcdfff4d57f896, type: 3}
+  itemPrefab: {fileID: 1947235135276768988, guid: 1aa7fde711a218046a6ca3d3ea1df0dc, type: 3}
+  worldItemPrefab: {fileID: 44187003610901031}
+  itemStats: {fileID: 11400000, guid: f35b689c989e5f940bb40669fb37f2e4, type: 2}
+  inventoryItemGameObject: {fileID: 0}

@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 488f04cf398c4384f98bd8d972520f30, type: 3}
-  m_Name: Crown
+  m_Name: Scriptable_lanyard
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 21300000, guid: 83b94a5f5cbfa524ebe5ef5487b1c772, type: 3}
-  itemType: 0
-  dimensions: 
-  description: To jest nagroda tylko dla sigiemek
+  - {fileID: 21300000, guid: 403f5e5bb06356e4cae6150549f214e8, type: 3}
+  itemType: 2
+  description: "Teraz dostan\u0119 si\u0119 wsz\u0119dzie"
+  height: 2
+  width: 2
+  dimensions: 01010101

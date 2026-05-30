@@ -169,7 +169,17 @@ public class PlayerInteractor : MonoBehaviour
         if (other.CompareTag("Item"))
         {
             var worldItemScript = other.GetComponent<WorldItemScript>();
+            
+            if(worldItemScript.inventoryItemGameObject != null) return;
+            
             var item = Instantiate(worldItemScript.itemPrefab, itemsArea, false);
+            
+            var inventoryItemScript = item.GetComponent<InventoryItemScript>();
+            inventoryItemScript.itemStats = worldItemScript.itemStats;
+            inventoryItemScript.SetStats(other.gameObject);
+            
+            //Debug.Log(other.gameObject);
+            
             worldItemScript.inventoryItemGameObject = item;
         }
 
@@ -209,6 +219,10 @@ public class PlayerInteractor : MonoBehaviour
     {
         if (other.CompareTag("Item"))
         {
+            //Debug.Log(other.gameObject.activeSelf);
+            
+            if(!other.gameObject.activeSelf) return;
+            
             var worldItemScript = other.GetComponent<WorldItemScript>();
 
             if (worldItemScript == null) return;

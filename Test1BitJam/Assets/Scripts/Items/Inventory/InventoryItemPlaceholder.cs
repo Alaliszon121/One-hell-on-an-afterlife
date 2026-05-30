@@ -5,16 +5,34 @@ namespace Items.Inventory
 {
     public class InventoryItemPlaceholder : MonoBehaviour
     {
-        [SerializeField] public List<GameObject> itemsNotInSuitcase;
+        [SerializeField] public List<InventoryItemScript> itemsNotInSuitcase;
 
         private void Awake()
         {
-            itemsNotInSuitcase = new List<GameObject>();
+            itemsNotInSuitcase = new List<InventoryItemScript>();
         }
 
-        public void TryToRemoveItem(GameObject item)
+        public void TryToRemoveItem(InventoryItemScript item)
         {
             itemsNotInSuitcase.Remove(item);
+        }
+
+        public void TryToAddItem(InventoryItemScript item)
+        {
+            if(!itemsNotInSuitcase.Contains(item)) 
+            {
+                itemsNotInSuitcase.Add(item);
+            }
+            
+            return;
+        }
+
+        public void SpawnItems()
+        {
+            foreach (InventoryItemScript item in itemsNotInSuitcase)
+            {
+                item.SpawnItemInWorld();
+            }
         }
     }
 }
